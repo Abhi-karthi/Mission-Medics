@@ -1,0 +1,127 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* Added this important property for layout stability */
+}
+
+@media (max-width: 768px) {
+    /* On small screens, stack the sections vertically */
+    .main-container {
+        flex-direction: column;
+    }
+    /* Make the sidebar full width and shorter */
+    .side-bar {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/* Sidebar Styles */
+
+
+/* -------------------------------------------------------------------------- */
+
+.side-bar {
+    width: 210px;
+    /* Adjust height dynamically, using 100vh is usually better than a fixed 1080px */
+    height: 100vh;
+    background-color: #4A6C9B;
+    /* Muted Steel Blue */
+    padding: 10px;
+}
+
+.side-bar-button {
+    text-align: center;
+    width: 210px;
+    padding: 50px;
+    margin-top: 60px;
+    background-color: #4A6C9B;
+    /* Matches sidebar for a clean look */
+    border: 0;
+}
+
+.side-bar-text {
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #E7F0FF;
+    /* Light Off-White for high contrast */
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/* Main Layout & Content */
+
+
+/* -------------------------------------------------------------------------- */
+
+.main-container {
+    display: flex;
+}
+
+.Get-supplies,
+.Donate-Supplies,
+.Support {
+    display: none;
+}
+
+.about-us {
+    background-color: #d3e6ff;
+    flex-grow: 1;
+    padding-left: 50px;
+}
+
+h1 {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 75px;
+    color: #1D3557;
+    /* Deep Navy Blue */
+    margin-left: 175px;
+    padding-top: 25px;
+    margin-bottom: 75px;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/* Content Elements */
+
+
+/* -------------------------------------------------------------------------- */
+
+#nonprofit-image {
+    width: 500px;
+    padding: 0;
+    margin-left: 90px;
+    display: block;
+}
+
+#about-us-paragraph {
+    margin-top: 75px;
+    margin-left: 0px;
+    display: block;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 40px;
+    color: #457B9D;
+    /* Muted Teal Blue for easy reading */
+    font-weight: bold;
+    text-align: center;
+    /* Changed invalid '20' to 'bold' or you can use 400 */
+}
+
+.side-bar-button {
+    transition: background-color 1s ease, color 1s ease;
+}
+
+.side-bar-button:hover {
+    background-color: #34495e;
+    /* Slightly darker hover state */
+    cursor: pointer;
+}
