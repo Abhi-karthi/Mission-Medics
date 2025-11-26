@@ -65,19 +65,19 @@
     display: flex;
 }
 
-.Get-supplies,
+.Support,
 .Donate-Supplies,
-.Support {
+.about-us {
     display: none;
 }
 
-.about-us {
+.Get-supplies {
     background-color: #d3e6ff;
     flex-grow: 1;
     padding-left: 50px;
 }
 
-h1 {
+#about-us-heading {
     font-family: 'Helvetica', sans-serif;
     font-size: 75px;
     color: #1D3557;
@@ -87,11 +87,21 @@ h1 {
     margin-bottom: 75px;
 }
 
+#get-supplies-heading {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 75px;
+    color: #1D3557;
+    /* Deep Navy Blue */
+    margin-left: 105px;
+    padding-top: 25px;
+    margin-bottom: 75px;
+}
+
 
 /* -------------------------------------------------------------------------- */
 
 
-/* Content Elements */
+/* About Us Elements */
 
 
 /* -------------------------------------------------------------------------- */
@@ -124,4 +134,35 @@ h1 {
     background-color: #34495e;
     /* Slightly darker hover state */
     cursor: pointer;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/* About Us Elements */
+
+
+/* -------------------------------------------------------------------------- */
+
+#supply-form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-left: 100px;
+}
+
+.supply-input {
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-label {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 25px;
+    color: #1D3557;
+    margin-bottom: 10px;
 }

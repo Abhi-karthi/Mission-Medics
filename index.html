@@ -25,30 +25,30 @@
             </button>
         </div>
         <section class="about-us">
-            <h1>About Us</h1>
+            <h1 id="about-us-heading">About Us</h1>
             <img id="nonprofit-image" src="Unknown.jpeg">
             <p1 id="about-us-paragraph">We are a nonprofit organization</p1>
         </section>
         <section class="Get-supplies">
-            <h1>Get Supplies</h1>
-            <form action="/submit-data" method="POST" class="form-class">
+            <h1 id="get-supplies-heading">Get Supplies</h1>
+            <form action="/submit-data" method="POST" class="name-email-message-form" , id="get-supplies-form">
 
-                <div>
-                    <label for="name">First Name:</label>
-                    <input type="text" id="name" name="user_name" required>
+                <div id="get-supplies-first-name-div" class="first-name-div">
+                    <label for="name" class="form-label">First Name:</label>
+                    <input type="text" id="name-input" name="user_name" required class="small-input-field">
                 </div>
 
-                <div>
-                    <label for="email">Your Email:</label>
-                    <input type="email" id="email" name="user_email" placeholder="you@example.com">
+                <div id="get-supplies-email-div" class="email-div">
+                    <label for="email" class="form-label">Your Email:</label>
+                    <input type="email" id="email" name="user_email" placeholder="you@example.com" class="small-input-field">
                 </div>
 
-                <div>
-                    <label for="msg">Message:</label>
+                <div id="get-supplies-message-div-id" class="message-div">
+                    <label for="msg" class="form-label">Message:</label>
                     <textarea id="msg" name="user_message" rows="4"></textarea>
                 </div>
 
-                <button type="submit">Send Message</button>
+                <button type="submit" class="send-message-button" , id="get-supplies-send-message-button">Send Message</button>
 
             </form>
         </section>
