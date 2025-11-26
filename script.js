@@ -1,9 +1,9 @@
 'use strict';
 
-let aboutUsButton = document.querySelector('.about-us-button');
-let getSuppliesButton = document.querySelector('.get-supplies-button');
-let donateSuppliesButton = document.querySelector('.donate-supplies-button');
-let supportButton = document.querySelector('.support-button');
+let aboutUsButton = document.getElementById('about-us-button');
+let getSuppliesButton = document.getElementById('get-supplies-button');
+let donateSuppliesButton = document.getElementById('donate-supplies-button');
+let supportButton = document.getElementById('support-button');
 
 let aboutUsSection = document.querySelector('.about-us');
 let getSuppliesSection = document.querySelector('.Get-supplies');
