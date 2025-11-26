@@ -1,220 +1,201 @@
+/* RESET */
+
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    /* Added this important property for layout stability */
-}
-
-@media (max-width: 768px) {
-    /* On small screens, stack the sections vertically */
-    .main-container {
-        flex-direction: column;
-    }
-    /* Make the sidebar full width and shorter */
-    .side-bar {
-        width: 100%;
-        height: auto;
-    }
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 
-/* -------------------------------------------------------------------------- */
+/* ✨ Soft background gradient */
 
-
-/* Sidebar Styles */
-
-
-/* -------------------------------------------------------------------------- */
-
-.side-bar {
-    width: 210px;
-    /* Adjust height dynamically, using 100vh is usually better than a fixed 1080px */
-    height: 100vh;
-    background-color: #4A6C9B;
-    /* Muted Steel Blue */
-    padding: 10px;
-}
-
-.side-bar-button {
-    text-align: center;
-    width: 210px;
-    padding: 50px;
-    margin-top: 60px;
-    background-color: #4A6C9B;
-    /* Matches sidebar for a clean look */
-    border: 0;
-}
-
-.side-bar-text {
-    font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #E7F0FF;
-    /* Light Off-White for high contrast */
+body {
+    background: linear-gradient(135deg, #d9e9ff, #f2f7ff);
+    min-height: 100vh;
 }
 
 
-/* -------------------------------------------------------------------------- */
+/* ✨ Navbar with glass effect */
+
+.navbar {
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    z-index: 999;
+}
 
 
-/* Main Layout & Content */
+/* ✨ Elegant Nav Buttons */
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 18px;
+    color: #1D3557;
+    cursor: pointer;
+    transition: 0.25s ease;
+    backdrop-filter: blur(10px);
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+}
 
 
-/* -------------------------------------------------------------------------- */
+/* MAIN CONTENT */
 
 .main-container {
+    padding-top: 110px;
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.Support,
-.Donate-Supplies,
-.about-us {
+
+/* Hide unused sections */
+
+.hidden {
     display: none;
 }
 
-.Get-supplies {
-    background-color: #d3e6ff;
-    flex-grow: 1;
-    padding-left: 50px;
-}
 
-#about-us-heading {
-    font-family: 'Helvetica', sans-serif;
+/* ✨ Beautiful Title Styling */
+
+.section-heading {
     font-size: 75px;
-    color: #1D3557;
-    /* Deep Navy Blue */
-    margin-left: 175px;
-    padding-top: 25px;
-    margin-bottom: 75px;
-}
-
-#get-supplies-heading {
-    font-family: 'Helvetica', sans-serif;
-    font-size: 75px;
-    color: #1D3557;
-    /* Deep Navy Blue */
-    margin-left: 105px;
-    padding-top: 25px;
-    margin-bottom: 75px;
-}
-
-
-/* -------------------------------------------------------------------------- */
-
-
-/* About Us Elements */
-
-
-/* -------------------------------------------------------------------------- */
-
-#nonprofit-image {
-    width: 500px;
-    padding: 0;
-    margin-left: 90px;
-    display: block;
-}
-
-#about-us-paragraph {
-    margin-top: 75px;
-    margin-left: 0px;
-    display: block;
-    font-family: 'Helvetica', sans-serif;
-    font-size: 40px;
-    color: #457B9D;
-    /* Muted Teal Blue for easy reading */
-    font-weight: bold;
+    font-weight: 700;
+    color: #1E3057;
     text-align: center;
-    /* Changed invalid '20' to 'bold' or you can use 400 */
-}
-
-.side-bar-button {
-    transition: background-color 1s ease, color 1s ease;
-}
-
-.side-bar-button:hover {
-    background-color: #34495e;
-    /* Slightly darker hover state */
-    cursor: pointer;
-}
-
-
-/* -------------------------------------------------------------------------- */
-
-
-/* About Us Elements */
-
-
-/* -------------------------------------------------------------------------- */
-
-#get-supplies-heading {
-    font-family: 'Helvetica', sans-serif;
-    font-size: 75px;
-    color: #1D3557;
-    /* Deep Navy Blue */
-    margin-left: 105px;
-    padding-top: 25px;
-    margin-bottom: 75px;
-}
-
-#supply-form {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    margin-left: 100px;
-}
-
-.supply-input {
-    font-size: 20px;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-}
-
-.form-label {
-    font-family: 'Helvetica', sans-serif;
-    font-size: 35px;
-    color: #1D3557;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.small-input-field {
-    width: 50%;
-    height: 32px;
-    font-size: 15px;
-    background-color: #1D3557;
-    color: #E7F0FF;
-    border: none;
-}
-
-.big-input-field {
-    width: 80%;
-    font-size: 15px;
-    background-color: #1D3557;
-    color: #E7F0FF;
-    border: none;
-    padding: 10px;
-}
-
-.send-message-button {
-    width: 200px;
-    padding: 15px;
-    font-size: 25px;
-    background-color: #4A6C9B;
-    color: #E7F0FF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    align-self: center;
-    margin-top: 35px;
-    margin-left: 210px;
-}
-
-.first-name-div {
     margin-bottom: 40px;
 }
 
-.email-div {
-    margin-bottom: 50px;
+
+/* ✨ ABOUT CARD */
+
+.about-card {
+    width: 60%;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.45);
+    padding: 40px;
+    border-radius: 25px;
+    backdrop-filter: blur(12px);
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.about-img {
+    width: 420px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.about-text {
+    font-size: 32px;
+    color: #2d4b68;
+    line-height: 1.5;
+}
+
+
+/* ✨ FORM */
+
+.form {
+    width: 60%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 40px;
+    border-radius: 25px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-label {
+    font-size: 26px;
+    color: #1E3057;
+}
+
+.input {
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+}
+
+.small {
+    height: 45px;
+}
+
+.big {
+    height: 150px;
+    resize: none;
+}
+
+
+/* ✨ Submit Button */
+
+.submit-btn {
+    background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
+    color: white;
+    font-size: 22px;
+    padding: 15px 40px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: 0.25s ease;
+    align-self: center;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(74, 108, 155, 0.3);
+}
+
+
+/* ✨ Hands Image */
+
+.hands-img {
+    width: 350px;
+    margin: 50px auto;
+    display: block;
+}
+
+
+/* ✨ Support text */
+
+.support-text {
+    font-size: 30px;
+    color: #1D3557;
+    text-align: center;
+}
+
+
+/* ✨ Fade animation */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
