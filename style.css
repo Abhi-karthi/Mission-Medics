@@ -145,6 +145,16 @@
 
 /* -------------------------------------------------------------------------- */
 
+#get-supplies-heading {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 75px;
+    color: #1D3557;
+    /* Deep Navy Blue */
+    margin-left: 105px;
+    padding-top: 25px;
+    margin-bottom: 75px;
+}
+
 #supply-form {
     display: flex;
     flex-direction: column;
@@ -162,7 +172,49 @@
 
 .form-label {
     font-family: 'Helvetica', sans-serif;
-    font-size: 25px;
+    font-size: 35px;
     color: #1D3557;
     margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.small-input-field {
+    width: 50%;
+    height: 32px;
+    font-size: 15px;
+    background-color: #1D3557;
+    color: #E7F0FF;
+    border: none;
+}
+
+.big-input-field {
+    width: 80%;
+    font-size: 15px;
+    background-color: #1D3557;
+    color: #E7F0FF;
+    border: none;
+    padding: 10px;
+}
+
+.send-message-button {
+    width: 200px;
+    padding: 15px;
+    font-size: 25px;
+    background-color: #4A6C9B;
+    color: #E7F0FF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    margin-top: 35px;
+    margin-left: 210px;
+}
+
+.first-name-div {
+    margin-bottom: 40px;
+}
+
+.email-div {
+    margin-bottom: 50px;
 }
