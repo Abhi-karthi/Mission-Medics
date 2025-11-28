@@ -271,8 +271,9 @@ body {
         width: 90%; /* Adjusted width for the three cards */
         max-width: 1250px; /* A max width for larger screens */
         margin: 0 auto;
-        margin-top: 30px;   
-        background: rgba(255, 255, 255, 0.45);
+        margin-top: 50px;   
+        margin-bottom: 50px;
+        background: rgba(255, 255, 255, 0.26);
         padding: 30px; /* Slightly less padding than about card */
         border-radius: 25px;
         backdrop-filter: blur(12px);
