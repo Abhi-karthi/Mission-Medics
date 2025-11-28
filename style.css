@@ -194,6 +194,43 @@ body {
 }
 
 
+/* ✨ DONATE SUPPLIES SECTION STYLING */
+
+.donate-supplies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* Space between the cards */
+}
+
+.donate-wheelchair-card,
+.donate-shower-chair-card,
+.donate-crutches-card {
+    /* Replicate the styling from .about-card but make it narrower */
+    width: 65%; /* Adjusted width for the three cards */
+    max-width: 900px; /* A max width for larger screens */
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.45);
+    padding: 30px; /* Slightly less padding than about card */
+    border-radius: 25px;
+    backdrop-filter: blur(12px);
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Style the text inside the donate cards */
+.donate-wheelchair-text,
+.donate-shower-chair-text,
+.donate-crutches-text {
+    /* Replicate the styling from .about-text */
+    font-size: 20px; /* Slightly smaller font for more text */
+    color: #2d4b68;
+    line-height: 1.6; /* Increased line height for readability */
+    display: block; /* Ensure the p1 elements are block level */
+}
+
+
 /* ✨ Support text */
 
 .support-text {
