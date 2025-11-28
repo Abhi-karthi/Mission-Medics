@@ -1,5 +1,7 @@
 'use strict';
 
+// Initialize sections, buttons, and texts
+
 let aboutUsButton = document.getElementById('about-us-button');
 let getSuppliesButton = document.getElementById('get-supplies-button');
 let donateSuppliesButton = document.getElementById('donate-supplies-button');
@@ -11,6 +13,7 @@ let donateCrutchesButton = document.querySelector('.donate-crutches-button');
 let removeWheelchairButton = document.querySelector('.remove-wheelchair-button');
 let removeShowerChairButton = document.querySelector('.remove-shower-chair-button');
 let removeCrutchesButton = document.querySelector('.remove-crutches-button');
+let donateTotalButton = document.querySelector('.donate-total-button');
 
 let aboutUsSection = document.querySelector('.about-us');
 let getSuppliesSection = document.querySelector('.Get-supplies');
@@ -88,7 +91,7 @@ removeWheelchairButton.addEventListener('click', function() {
 });
 
 removeShowerChairButton.addEventListener('click', function() {
-    donateShowerChair = false;
+    donateShowerChair = false;          
     donateShowerChairButton.textContent = "Donate Shower Chair";
     showerChairDonatedText.classList.add('hidden');
     updateTotalDonated();
@@ -110,3 +113,6 @@ function updateTotalDonated() {
     let totalDonatedElement = document.querySelector('.donate-total-heading');
     totalDonatedElement.textContent = `Total: $${totalDonated}`;
 }
+
+// Proceed to donate 
+

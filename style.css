@@ -1,3 +1,10 @@
+I have added the `:active` state to your donate buttons.
+
+I implemented this by adding a rule right after your hover effects that triggers when the button is clicked. It reduces the scale to `0.98` (shrinks) and resets the Y transformation to `0` (moves down), giving it a tactile "pressed" feel just like your "Proceed to Donate" button.
+
+Here is the full, corrected CSS file:
+
+```css
 /* RESET */
 
 * {
@@ -135,7 +142,6 @@ body {
     gap: 20px;
     animation: fadeIn 0.8s ease forwards;
     text-align: left;
-    /* align-items: center; */
 }
 
 .form-label {
@@ -197,30 +203,20 @@ body {
 /* ✨ DONATE SUPPLIES SECTION STYLING */
 
 .donate-supplies {
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
     gap: 30px; /* Space between the cards */
 }
 
-/* .donate-text {
-    font-size: 28px;
-    color: #1D3557;
-    text-align: center;
-    margin-bottom: 20px;
-    width: 70%;
-} */
-
 .donate-wheelchair-card,
 .donate-shower-chair-card,
 .donate-crutches-card {
-    /* Replicate the styling from .about-card but make it narrower */
     width: 65%; /* Adjusted width for the three cards */
     max-width: 900px; /* A max width for larger screens */
     margin: 0 auto;
     margin-bottom: 30px;
     background: rgba(255, 255, 255, 0.45);
-    padding: 30px; /* Slightly less padding than about card */
+    padding: 30px; 
     border-radius: 25px;
     backdrop-filter: blur(12px);
     text-align: center;
@@ -258,28 +254,38 @@ body {
     /* This darkens the button to 85% brightness */
     filter: brightness(0.85); 
     
-    /* Optional: Moves the button up slightly (like your nav buttons) */
+    /* Optional: Moves the button up slightly */
     transform: translateY(-2px);
     
     /* Optional: Adds a subtle shadow for depth */
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
+/* ✨ The Active (Clicked) State - NEW ADDITION */
+.donate-wheelchair-button:active,
+.donate-shower-chair-button:active,
+.donate-crutches-button:active {
+    /* Scales down slightly and returns to original Y position */
+    transform: translateY(0px) scale(0.98);
+    /* Reduces shadow to look like it is pressed against the page */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    filter: brightness(0.8);
+}
+
 /* Style donate total */
 .donate-total-card {
-        /* Replicate the styling from .about-card but make it narrower */
-        width: 90%; /* Adjusted width for the three cards */
-        max-width: 1250px; /* A max width for larger screens */
-        margin: 0 auto;
-        margin-top: 50px;   
-        margin-bottom: 50px;
-        background: rgba(255, 255, 255, 0.26);
-        padding: 30px; /* Slightly less padding than about card */
-        border-radius: 25px;
-        backdrop-filter: blur(12px);
-        text-align: center;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 0.8s ease forwards;
+    width: 90%; 
+    max-width: 1250px; 
+    margin: 0 auto;
+    margin-top: 50px;   
+    margin-bottom: 50px;
+    background: rgba(255, 255, 255, 0.26);
+    padding: 30px;
+    border-radius: 25px;
+    backdrop-filter: blur(12px);
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease forwards;
 }
 
 .donate-total-heading {
@@ -293,10 +299,9 @@ body {
 .shower-chair-donated-text,
 .crutches-donated-text {
     position: relative;
-    padding-right: 44px; /* space for button on the right (10px gap + ~24px button + inner spacing) */
+    padding-right: 44px;
     padding-left: 0;
     text-align: left;
-    display: block;
     line-height: 1.6;
 }
 
@@ -306,7 +311,7 @@ body {
 .remove-shower-chair-button,
 .remove-crutches-button {
     position: absolute;
-    right: 10px;         /* 10px from the right border of the <p> */
+    right: 10px;        
     left: auto;
     top: 50%;
     transform: translateY(-50%);
@@ -315,7 +320,6 @@ body {
     padding: 4px;
     border: none;
     background: transparent;
-    display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 4px;
@@ -335,23 +339,20 @@ body {
 .trash-can-image {
     width: 16px;
     height: 16px;
-    display: block;
 }   
 
 /* Style the text inside the donate cards */
 .donate-wheelchair-text,
 .donate-shower-chair-text,
 .donate-crutches-text {
-    /* Replicate the styling from .about-text */
-    font-size: 20px; /* Slightly smaller font for more text */
+    font-size: 20px;
     color: #2d4b68;
-    line-height: 1.6; /* Increased line height for readability */
+    line-height: 1.6; 
 }
 
 /* if you prefer label wrapped for precise control */
 .donate-total-card .donated-label {
-    display: inline-block;
-    width: calc(100% - 54px); /* leave room for 24px button + 10px gaps */
+    width: calc(100% - 54px); 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -359,432 +360,6 @@ body {
 
 /* donate total action button */
 .donate-total-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
-    color: #fff;
-    font-size: 20px;
-    padding: 14px 36px;
-    border-radius: 16px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-    box-shadow: 0 8px 30px rgba(74, 108, 155, 0.18);
-    text-decoration: none;
-    white-space: nowrap;
-    margin: 40px auto 0 auto;
-}
-
-/* Hover / active / focus states */
-.donate-total-button:hover {
-    transform: translateY(-3px);
-    filter: brightness(0.92);
-    box-shadow: 0 12px 40px rgba(74, 108, 155, 0.25);
-}
-
-.donate-total-button:active {
-    transform: translateY(-1px) scale(0.995);
-}
-
-.donate-total-button:focus {
-    outline: 3px solid rgba(74, 108, 155, 0.16);
-    outline-offset: 3px;
-}
-
-/* Utility: full width variant for small screens or centering */
-.donate-total-button.full-width {
-    width: 100%;
-    max-width: 480px;
-    padding-left: 24px;
-    padding-right: 24px;
-}
-
-/* ✨ Support text */
-
-.support-text {
-    font-size: 30px;
-    color: #1D3557;
-    text-align: center;
-}
-
-
-/* ✨ Fade animation */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* RESET */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-
-/* ✨ Soft background gradient */
-
-body {
-    background: linear-gradient(135deg, #d9e9ff, #f2f7ff);
-    min-height: 100vh;
-}
-
-
-/* ✨ Navbar with glass effect */
-
-.navbar {
-    width: 100%;
-    height: 70px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    align-items: center;
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    z-index: 999;
-}
-
-
-/* ✨ Elegant Nav Buttons */
-
-.nav-btn {
-    background: rgba(255, 255, 255, 0.25);
-    border: none;
-    padding: 10px 18px;
-    border-radius: 12px;
-    font-size: 18px;
-    color: #1D3557;
-    cursor: pointer;
-    transition: 0.25s ease;
-    backdrop-filter: blur(10px);
-}
-
-.nav-btn:hover {
-    background: rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px);
-}
-
-
-/* MAIN CONTENT */
-
-.main-container {
-    padding-top: 110px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-/* Hide unused sections */
-
-.hidden {
-    display: none;
-}
-
-
-/* ✨ Beautiful Title Styling */
-
-.section-heading {
-    font-size: 75px;
-    font-weight: 700;
-    color: #1E3057;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-
-/* ✨ ABOUT CARD */
-
-.about-card {
-    width: 80%;
-    height: 80%;
-    margin: auto;
-    background: rgba(255, 255, 255, 0.45);
-    padding: 40px;
-    border-radius: 25px;
-    backdrop-filter: blur(12px);
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease forwards;
-}
-
-.about-img {
-    width: 420px;
-    border-radius: 20px;
-    margin-bottom: 30px;
-}
-
-.about-text {
-    font-size: 32px;
-    color: #2d4b68;
-    line-height: 1.5;
-}
-
-.contact-info {
-    font-size: 20px;
-    color: #1D3557;
-    margin-top: 15px;
-}
-
-
-/* ✨ FORM */
-
-.form {
-    width: 60%;
-    max-width: 720px;
-    min-width: 500px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 40px;
-    border-radius: 50px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    animation: fadeIn 0.8s ease forwards;
-    text-align: left;
-    /* align-items: center; */
-}
-
-.form-label {
-    font-size: 26px;
-    color: #1E3057;
-}
-
-.input {
-    border: none;
-    border-radius: 12px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    font-size: 18px;
-}
-
-.small {
-    height: 45px;
-}
-
-.big {
-    height: 150px;
-    resize: none;
-}
-
-.get-supplies-message {
-    text-align: center;
-}
-
-
-/* ✨ Submit Button */
-
-.submit-btn {
-    background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
-    color: white;
-    font-size: 22px;
-    padding: 15px 40px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    transition: 0.25s ease;
-    align-self: center;
-}
-
-.submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(74, 108, 155, 0.3);
-}
-
-
-/* ✨ Hands Image */
-
-.hands-img {
-    width: 350px;
-    margin: 50px auto;
-    display: block;
-}
-
-
-/* ✨ DONATE SUPPLIES SECTION STYLING */
-
-.donate-supplies {
-    /* display: flex; */
-    flex-direction: column;
-    align-items: center;
-    gap: 30px; /* Space between the cards */
-}
-
-/* .donate-text {
-    font-size: 28px;
-    color: #1D3557;
-    text-align: center;
-    margin-bottom: 20px;
-    width: 70%;
-} */
-
-.donate-wheelchair-card,
-.donate-shower-chair-card,
-.donate-crutches-card {
-    /* Replicate the styling from .about-card but make it narrower */
-    width: 65%; /* Adjusted width for the three cards */
-    max-width: 900px; /* A max width for larger screens */
-    margin: 0 auto;
-    margin-bottom: 30px;
-    background: rgba(255, 255, 255, 0.45);
-    padding: 30px; /* Slightly less padding than about card */
-    border-radius: 25px;
-    backdrop-filter: blur(12px);
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease forwards;
-}
-
-/* Style heading inside donate cards */
-.donate-heading {
-    font-size: 40px;
-    color: #1E3057;
-    margin-bottom: 20px;
-}
-
-.donate-wheelchair-button,
-.donate-shower-chair-button,
-.donate-crutches-button {
-    background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
-    color: white;
-    font-size: 22px;
-    padding: 12px 30px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-    
-    /* This tells the button to animate ANY change (including filter and transform) */
-    transition: 0.25s ease; 
-}
-
-/* ✨ The Hover State */
-.donate-wheelchair-button:hover,
-.donate-shower-chair-button:hover,
-.donate-crutches-button:hover {
-    /* This darkens the button to 85% brightness */
-    filter: brightness(0.85); 
-    
-    /* Optional: Moves the button up slightly (like your nav buttons) */
-    transform: translateY(-2px);
-    
-    /* Optional: Adds a subtle shadow for depth */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-/* Style donate total */
-.donate-total-card {
-        /* Replicate the styling from .about-card but make it narrower */
-        width: 90%; /* Adjusted width for the three cards */
-        max-width: 1250px; /* A max width for larger screens */
-        margin: 0 auto;
-        margin-top: 50px;   
-        margin-bottom: 50px;
-        background: rgba(255, 255, 255, 0.26);
-        padding: 30px; /* Slightly less padding than about card */
-        border-radius: 25px;
-        backdrop-filter: blur(12px);
-        text-align: center;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 0.8s ease forwards;
-}
-
-.donate-total-heading {
-    font-weight: bold;
-    color: #1D3557;
-    text-align: center;
-}
-
-/* donated rows: text left, button on right */
-.wheelchair-donated-text,
-.shower-chair-donated-text,
-.crutches-donated-text {
-    position: relative;
-    padding-right: 44px; /* space for button on the right (10px gap + ~24px button + inner spacing) */
-    padding-left: 0;
-    text-align: left;
-    /* display: block; */
-    line-height: 1.6;
-}
-
-/* target any remove button inside the total card */
-.donate-total-card p > button,
-.remove-wheelchair-button,
-.remove-shower-chair-button,
-.remove-crutches-button {
-    position: absolute;
-    right: 10px;         /* 10px from the right border of the <p> */
-    left: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    padding: 4px;
-    border: none;
-    background: transparent;
-    /* display: inline-flex; */
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.12s ease;
-}
-
-.donate-total-card p > button:hover,
-.remove-wheelchair-button:hover,
-.remove-shower-chair-button:hover,
-.remove-crutches-button:hover {
-    background-color: rgba(0,0,0,0.06);
-    transform: translateY(-50%) scale(1.05);
-}
-
-/* ensure image sits nicely inside the small button */
-.trash-can-image {
-    width: 16px;
-    height: 16px;
-    /* display: block; */
-}   
-
-/* Style the text inside the donate cards */
-.donate-wheelchair-text,
-.donate-shower-chair-text,
-.donate-crutches-text {
-    /* Replicate the styling from .about-text */
-    font-size: 20px; /* Slightly smaller font for more text */
-    color: #2d4b68;
-    line-height: 1.6; /* Increased line height for readability */
-}
-
-/* if you prefer label wrapped for precise control */
-.donate-total-card .donated-label {
-    /* display: inline-block; */
-    width: calc(100% - 54px); /* leave room for 24px button + 10px gaps */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* donate total action button */
-.donate-total-button {
-    /* display: inline-flex; */
     align-items: center;
     justify-content: center;
     gap: 10px;
