@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nonprofit</title>
+    <title>Mission Medics</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ✨ Premium Navbar -->
     <nav class="navbar">
         <button class="nav-btn" id="about-us-button">About Us</button>
         <button class="nav-btn" id="get-supplies-button">Get Supplies</button>
@@ -20,18 +19,15 @@
 
     <div class="main-container">
 
-        <!-- ABOUT -->
-        <section class="about-us">
+        <section class="about-us" id="section-about">
             <h1 class="section-heading">About Us</h1>
             <div class="about-card">
-                <!-- <img class="about-img" src="Unknown.jpeg" alt="Nonprofit"> -->
-                <p class="about-text">We are a nonprofit organization</p>
+                <p class="about-text">We are a nonprofit organization dedicated to helping those in need of medical supplies.</p>
                 <p class="contact-info">Contact us at krithiicode@gmail.com, or +1 (646)-374-8775.</p>
             </div>
         </section>
 
-        <!-- GET SUPPLIES-->
-        <section class="Get-supplies hidden">
+        <section class="Get-supplies hidden" id="section-get-supplies">
             <h1 class="section-heading">Get Supplies</h1>
 
             <form class="form">
@@ -47,31 +43,33 @@
                 <button class="submit-btn">Send Message</button>
             </form>
 
-            <!-- <img class="hands-img" src="hands.png" alt="Hands"> -->
-        </section>
+            </section>
 
-        <!-- DONATE -->
-        <section class="donate-supplies hidden">
+        <section class="donate-supplies hidden" id="section-donate">
             <h1 class="section-heading">Donate Supplies</h1>
             <section class="donate-cards-container">
-                <!-- <p class="donate-text">Every donation counts. Donate today to help out the community. Choose at least one of the following:</p> -->
+                
                 <div class="donate-wheelchair-card">
                     <h1 class="donate-heading" id="donate-wheelchair-heading">Wheelchair: $200</h1>
-                    <p class="donate-wheelchair-text">Donating a wheelchair fundamentally restores a person's independence and dignity, offering essential access to education, employment, and social connection. This simple, cost-effective act combats isolation and prevents serious health issues, profoundly improving the quality of life. By gifting mobility, you empower not just the individual, but also their family and community for years to come.</p>
+                    <p class="donate-wheelchair-text">Donating a wheelchair fundamentally restores a person's independence and dignity, offering essential access to education, employment, and social connection.</p>
                     <button class="donate-wheelchair-button">Donate Wheelchair</button>
                 </div>
+
                 <div class="donate-shower-chair-card">
                     <h1 class="donate-heading" id="donate-shower-chair-heading">Shower Chair: $25</h1>
-                    <p class="donate-shower-chair-text">Donating a shower chair significantly enhances the safety and independence of individuals with mobility challenges. This simple donation also alleviates the caregiving burden on families. Your contribution fosters a safer living environment, empowering recipients to maintain their autonomy and quality of life.</p>
+                    <p class="donate-shower-chair-text">Donating a shower chair significantly enhances the safety and independence of individuals with mobility challenges. This simple donation also alleviates the caregiving burden on families.</p>
                     <button class="donate-shower-chair-button">Donate Shower Chair</button>
                 </div>
+
                 <div class="donate-crutches-card">
                     <h1 class="donate-heading" id="donate-crutches-heading">Crutches: $50</h1>
-                    <p class="donate-crutches-text">Donating crutches provides essential mobility support to individuals recovering from injuries or surgeries. This simple act of kindness helps recipients regain their independence, facilitates faster rehabilitation, and improves their overall quality of life. Your donation can make a significant difference in someone's journey to recovery.</p>
+                    <p class="donate-crutches-text">Donating crutches provides essential mobility support to individuals recovering from injuries or surgeries. This simple act of kindness helps recipients regain their independence.</p>
                     <button class="donate-crutches-button">Donate Crutches</button>
                 </div>
+
                 <div class="donate-total-card">
                     <h1 class="donate-total-heading" id="donate-total-heading">Total: $0</h1>
+                    
                     <p class="wheelchair-donated-text hidden">
                         <button class="remove-wheelchair-button"><img src="trash-can-image.jpg" class="trash-can-image"></button>
                         Wheelchair
@@ -84,19 +82,17 @@
                         <button class="remove-crutches-button"><img src="trash-can-image.jpg" class="trash-can-image"></button>
                         Crutches
                     </p>
+                    
                     <button class="donate-total-button">Proceed to Donate</button>
                 </div>  
             </section>
-            <section class="donate-thank-you hidden">
-                <h1 class="thank-you-heading">Thank You for Your Donation!</h1>
-                <p class="thank-you-text">Your generosity makes a difference.</p>
-            </section>
         </section>
 
-        <!-- SUPPORT -->
-        <section class="Support hidden">
+        <section class="Support hidden" id="section-support">
             <h1 class="section-heading">Support</h1>
-            <p class="support-text">Give us money now</p>
+            <p class="support-text">Your financial support helps us keep the lights on and the missions running.</p>
+            <br>
+            <button class="submit-btn">Donate Money</button>
         </section>
 
     </div>

@@ -1,424 +1,346 @@
-I have added the `:active` state to your donate buttons.
-
-I implemented this by adding a rule right after your hover effects that triggers when the button is clicked. It reduces the scale to `0.98` (shrinks) and resets the Y transformation to `0` (moves down), giving it a tactile "pressed" feel just like your "Proceed to Donate" button.
-
-Here is the full, corrected CSS file:
-
-```css
-/* RESET */
+/* =========================================
+   1. CORE VARIABLES & SETUP
+   ========================================= */
+:root {
+    --glass-surface: rgba(255, 255, 255, 0.55); 
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --primary-blue: #4A6C9B;
+    --deep-blue: #1E3057;
+    /* The Spring Physics you liked */
+    --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1); 
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
-
-/* ✨ Soft background gradient */
-
+/* =========================================
+   2. CREATIVE BACKGROUND (Aurora Flow)
+   ========================================= */
 body {
-    background: linear-gradient(135deg, #d9e9ff, #f2f7ff);
+    background-color: #eef2f9;
+    background-image: 
+        radial-gradient(at 10% 10%, hsla(213,86%,85%,1) 0, transparent 50%), 
+        radial-gradient(at 90% 90%, hsla(250,86%,89%,1) 0, transparent 50%), 
+        radial-gradient(at 50% 50%, hsla(205,86%,92%,1) 0, transparent 60%);
+    background-size: 200% 200%;
     min-height: 100vh;
+    /* Keeps the background alive and moving */
+    animation: auroraFlow 20s ease-in-out infinite alternate;
+    overflow-x: hidden;
 }
 
+@keyframes auroraFlow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
 
-/* ✨ Navbar with glass effect */
+/* =========================================
+   3. LAYOUT & CENTERING
+   ========================================= */
+.hidden {
+    display: none !important;
+}
 
-.navbar {
+.main-container {
+    padding-top: 130px;
     width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding-bottom: 80px;
+}
+
+/* Strict Centering for Donate Cards */
+.donate-cards-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* =========================================
+   4. GLASS CARDS & THE "SOFT GLOW"
+   ========================================= */
+.navbar, .about-card, .form, .donate-wheelchair-card, 
+.donate-shower-chair-card, .donate-crutches-card, 
+.donate-total-card {
+    background: var(--glass-surface);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 35px;
+    
+    /* Animation settings */
+    transition: transform 0.4s var(--spring-easing), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* --- THE NEW "SOFT GLOW" HOVER --- */
+/* No shine, just a beautiful lift and a soft blue aura */
+.about-card:hover, .form:hover, .donate-wheelchair-card:hover, 
+.donate-shower-chair-card:hover, .donate-crutches-card:hover {
+    /* 1. The Bouncy Lift */
+    transform: translateY(-10px) scale(1.01);
+    
+    /* 2. The Soft Aura (Large, diffuse blue shadow) */
+    box-shadow: 
+        0 20px 50px rgba(74, 108, 155, 0.25), /* The Aura */
+        0 0 0 2px rgba(255, 255, 255, 0.8) inset; /* Inner white rim */
+        
+    /* 3. Brighter Border */
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.65); /* Slightly brighter glass */
+}
+
+/* =========================================
+   5. NAVBAR (Floating Animation)
+   ========================================= */
+.navbar {
+    width: auto;
+    min-width: 600px;
+    max-width: 90%;
     height: 70px;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 10px;
     align-items: center;
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    z-index: 999;
+    z-index: 1000;
+    padding: 0 10px;
+    border-radius: 50px;
+    /* Drop-in animation */
+    animation: navFloat 1s var(--spring-easing) forwards;
 }
 
-
-/* ✨ Elegant Nav Buttons */
+@keyframes navFloat {
+    from { transform: translate(-50%, -150%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
 
 .nav-btn {
-    background: rgba(255, 255, 255, 0.25);
+    background: transparent;
     border: none;
-    padding: 10px 18px;
-    border-radius: 12px;
-    font-size: 18px;
-    color: #1D3557;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--deep-blue);
     cursor: pointer;
-    transition: 0.25s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
 .nav-btn:hover {
-    background: rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transform: translateY(-2px);
 }
 
-
-/* MAIN CONTENT */
-
-.main-container {
-    padding-top: 110px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-/* Hide unused sections */
-
-.hidden {
-    display: none;
-}
-
-
-/* ✨ Beautiful Title Styling */
-
-.section-heading {
-    font-size: 75px;
-    font-weight: 700;
-    color: #1E3057;
+/* =========================================
+   6. CARD SIZING & ENTRANCE ANIMATIONS
+   ========================================= */
+.about-card, .form, .donate-wheelchair-card, 
+.donate-shower-chair-card, .donate-crutches-card, .donate-total-card {
+    width: 90%; 
+    max-width: 1000px;
+    padding: 50px;
     text-align: center;
     margin-bottom: 40px;
+    
+    /* Center self if flex alignment fails */
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Pop-up Entrance */
+    opacity: 0;
+    animation: cardEntrance 0.8s var(--spring-easing) forwards 0.2s;
 }
 
-
-/* ✨ ABOUT CARD */
-
-.about-card {
-    width: 80%;
-    height: 80%;
-    margin: auto;
-    background: rgba(255, 255, 255, 0.45);
-    padding: 40px;
-    border-radius: 25px;
-    backdrop-filter: blur(12px);
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease forwards;
+@keyframes cardEntrance {
+    from { opacity: 0; transform: scale(0.9) translateY(40px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
 }
-
-.about-img {
-    width: 420px;
-    border-radius: 20px;
-    margin-bottom: 30px;
-}
-
-.about-text {
-    font-size: 32px;
-    color: #2d4b68;
-    line-height: 1.5;
-}
-
-.contact-info {
-    font-size: 20px;
-    color: #1D3557;
-    margin-top: 15px;
-}
-
-
-/* ✨ FORM */
 
 .form {
-    width: 60%;
-    max-width: 720px;
-    min-width: 500px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 40px;
-    border-radius: 50px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     gap: 20px;
-    animation: fadeIn 0.8s ease forwards;
     text-align: left;
 }
 
+/* =========================================
+   7. TYPOGRAPHY
+   ========================================= */
+.section-heading {
+    font-size: 60px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1E3057 0%, #4A6C9B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeText 0.8s ease forwards;
+}
+
+@keyframes fadeText {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.about-text, .donate-wheelchair-text, 
+.donate-shower-chair-text, .donate-crutches-text {
+    font-size: 20px;
+    color: #445566;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.donate-heading {
+    font-size: 32px;
+    color: var(--deep-blue);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+/* =========================================
+   8. INPUTS (Creative Focus)
+   ========================================= */
 .form-label {
-    font-size: 26px;
-    color: #1E3057;
+    font-size: 18px;
+    color: var(--deep-blue);
+    font-weight: 700;
+    margin-left: 10px;
+    margin-bottom: -5px;
 }
 
 .input {
-    border: none;
-    border-radius: 12px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.4);
     font-size: 18px;
+    outline: none;
+    transition: 0.3s;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
 }
 
-.small {
-    height: 45px;
+.input:focus {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--primary-blue);
+    transform: scale(1.01);
+    box-shadow: 0 10px 20px rgba(74, 108, 155, 0.1);
 }
 
-.big {
-    height: 150px;
-    resize: none;
-}
+.small { height: 55px; }
+.big { height: 150px; resize: none; }
 
-.get-supplies-message {
-    text-align: center;
-}
-
-
-/* ✨ Submit Button */
-
-.submit-btn {
+/* =========================================
+   9. BUTTONS (With Neon Pulse)
+   ========================================= */
+.submit-btn, .donate-wheelchair-button,
+.donate-shower-chair-button, .donate-crutches-button,
+.donate-total-button {
     background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
     color: white;
-    font-size: 22px;
+    font-size: 18px;
+    font-weight: 700;
     padding: 15px 40px;
-    border-radius: 14px;
+    border-radius: 30px;
     border: none;
     cursor: pointer;
-    transition: 0.25s ease;
-    align-self: center;
-}
-
-.submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(74, 108, 155, 0.3);
-}
-
-
-/* ✨ Hands Image */
-
-.hands-img {
-    width: 350px;
-    margin: 50px auto;
-    display: block;
-}
-
-
-/* ✨ DONATE SUPPLIES SECTION STYLING */
-
-.donate-supplies {
-    flex-direction: column;
+    box-shadow: 0 10px 20px rgba(74, 108, 155, 0.3);
+    transition: all 0.3s var(--spring-easing);
+    
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    gap: 30px; /* Space between the cards */
-}
-
-.donate-wheelchair-card,
-.donate-shower-chair-card,
-.donate-crutches-card {
-    width: 65%; /* Adjusted width for the three cards */
-    max-width: 900px; /* A max width for larger screens */
+    width: fit-content;
     margin: 0 auto;
-    margin-bottom: 30px;
-    background: rgba(255, 255, 255, 0.45);
-    padding: 30px; 
-    border-radius: 25px;
-    backdrop-filter: blur(12px);
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease forwards;
 }
 
-/* Style heading inside donate cards */
-.donate-heading {
-    font-size: 40px;
-    color: #1E3057;
-    margin-bottom: 20px;
+/* Neon Pulse Animation (Kept from Creative version) */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(74, 108, 155, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(74, 108, 155, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 108, 155, 0); }
 }
 
-.donate-wheelchair-button,
-.donate-shower-chair-button,
-.donate-crutches-button {
-    background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
-    color: white;
-    font-size: 22px;
-    padding: 12px 30px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-    
-    /* This tells the button to animate ANY change (including filter and transform) */
-    transition: 0.25s ease; 
+.submit-btn:hover, .donate-wheelchair-button:hover,
+.donate-shower-chair-button:hover, .donate-crutches-button:hover,
+.donate-total-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    filter: brightness(1.1);
+    /* The pulsing glow effect */
+    animation: pulseGlow 1.5s infinite;
 }
 
-/* ✨ The Hover State */
-.donate-wheelchair-button:hover,
-.donate-shower-chair-button:hover,
-.donate-crutches-button:hover {
-    /* This darkens the button to 85% brightness */
-    filter: brightness(0.85); 
-    
-    /* Optional: Moves the button up slightly */
-    transform: translateY(-2px);
-    
-    /* Optional: Adds a subtle shadow for depth */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+.submit-btn:active, .donate-wheelchair-button:active,
+.donate-shower-chair-button:active, .donate-crutches-button:active,
+.donate-total-button:active {
+    transform: scale(0.95);
+    animation: none;
 }
 
-/* ✨ The Active (Clicked) State - NEW ADDITION */
-.donate-wheelchair-button:active,
-.donate-shower-chair-button:active,
-.donate-crutches-button:active {
-    /* Scales down slightly and returns to original Y position */
-    transform: translateY(0px) scale(0.98);
-    /* Reduces shadow to look like it is pressed against the page */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    filter: brightness(0.8);
-}
-
-/* Style donate total */
-.donate-total-card {
-    width: 90%; 
-    max-width: 1250px; 
-    margin: 0 auto;
-    margin-top: 50px;   
-    margin-bottom: 50px;
-    background: rgba(255, 255, 255, 0.26);
-    padding: 30px;
-    border-radius: 25px;
-    backdrop-filter: blur(12px);
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease forwards;
-}
-
-.donate-total-heading {
-    font-weight: bold;
-    color: #1D3557;
-    text-align: center;
-}
-
-/* donated rows: text left, button on right */
+/* =========================================
+   10. DONATION LIST ITEMS
+   ========================================= */
 .wheelchair-donated-text,
 .shower-chair-donated-text,
 .crutches-donated-text {
-    position: relative;
-    padding-right: 44px;
-    padding-left: 0;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px 25px;
+    border-radius: 15px;
+    margin-bottom: 10px;
     text-align: left;
-    line-height: 1.6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* target any remove button inside the total card */
-.donate-total-card p > button,
 .remove-wheelchair-button,
 .remove-shower-chair-button,
 .remove-crutches-button {
-    position: absolute;
-    right: 10px;        
-    left: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    padding: 4px;
+    background: #ffebee;
     border: none;
-    background: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.12s ease;
+    transition: 0.2s;
 }
 
-.donate-total-card p > button:hover,
 .remove-wheelchair-button:hover,
 .remove-shower-chair-button:hover,
 .remove-crutches-button:hover {
-    background-color: rgba(0,0,0,0.06);
-    transform: translateY(-50%) scale(1.05);
+    background: #ffcdd2;
+    transform: rotate(90deg);
 }
 
-/* ensure image sits nicely inside the small button */
-.trash-can-image {
-    width: 16px;
-    height: 16px;
-}   
+.trash-can-image { width: 14px; opacity: 0.6; }
 
-/* Style the text inside the donate cards */
-.donate-wheelchair-text,
-.donate-shower-chair-text,
-.donate-crutches-text {
-    font-size: 20px;
-    color: #2d4b68;
-    line-height: 1.6; 
+/* =========================================
+   11. FADE EXIT (Shatter Effect)
+   ========================================= */
+.fading-out {
+    animation: glassShatterExit 0.4s cubic-bezier(0.4, 0.0, 0.2, 1) forwards !important;
+    pointer-events: none;
 }
 
-/* if you prefer label wrapped for precise control */
-.donate-total-card .donated-label {
-    width: calc(100% - 54px); 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* donate total action button */
-.donate-total-button {
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
-    color: #fff;
-    font-size: 20px;
-    padding: 14px 36px;
-    border-radius: 16px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-    box-shadow: 0 8px 30px rgba(74, 108, 155, 0.18);
-    text-decoration: none;
-    white-space: nowrap;
-    margin: 40px auto 0 auto;
-}
-
-/* Hover / active / focus states */
-.donate-total-button:hover {
-    transform: translateY(-3px);
-    filter: brightness(0.92);
-    box-shadow: 0 12px 40px rgba(74, 108, 155, 0.25);
-}
-
-.donate-total-button:active {
-    transform: translateY(-1px) scale(0.995);
-}
-
-.donate-total-button:focus {
-    outline: 3px solid rgba(74, 108, 155, 0.16);
-    outline-offset: 3px;
-}
-
-/* Utility: full width variant for small screens or centering */
-.donate-total-button.full-width {
-    width: 100%;
-    max-width: 480px;
-    padding-left: 24px;
-    padding-right: 24px;
-}
-
-/* ✨ Support text */
-
-.support-text {
-    font-size: 30px;
-    color: #1D3557;
-    text-align: center;
-}
-
-
-/* ✨ Fade animation */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes glassShatterExit {
+    from { opacity: 1; transform: scale(1); filter: blur(0); }
+    to { opacity: 0; transform: scale(0.9); filter: blur(15px); }
 }
