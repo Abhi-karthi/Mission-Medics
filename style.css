@@ -721,7 +721,7 @@ body {
     padding-right: 44px; /* space for button on the right (10px gap + ~24px button + inner spacing) */
     padding-left: 0;
     text-align: left;
-    display: block;
+    /* display: block; */
     line-height: 1.6;
 }
 
@@ -740,7 +740,7 @@ body {
     padding: 4px;
     border: none;
     background: transparent;
-    display: inline-flex;
+    /* display: inline-flex; */
     align-items: center;
     justify-content: center;
     border-radius: 4px;
@@ -760,7 +760,7 @@ body {
 .trash-can-image {
     width: 16px;
     height: 16px;
-    display: block;
+    /* display: block; */
 }   
 
 /* Style the text inside the donate cards */
@@ -775,7 +775,7 @@ body {
 
 /* if you prefer label wrapped for precise control */
 .donate-total-card .donated-label {
-    display: inline-block;
+    /* display: inline-block; */
     width: calc(100% - 54px); /* leave room for 24px button + 10px gaps */
     overflow: hidden;
     text-overflow: ellipsis;
@@ -784,7 +784,7 @@ body {
 
 /* donate total action button */
 .donate-total-button {
-    display: inline-flex;
+    /* display: inline-flex; */
     align-items: center;
     justify-content: center;
     gap: 10px;

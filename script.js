@@ -5,17 +5,21 @@ let getSuppliesButton = document.getElementById('get-supplies-button');
 let donateSuppliesButton = document.getElementById('donate-supplies-button');
 let supportButton = document.getElementById('support-button');
 
-let donateWheelchairButton = document.querySelector('donate-wheelchair-button');
-let donateShowerChairButton = document.querySelector('donate-shower-chair-button');
-let donateCrutchesButton = document.querySelector('donate-crutches-button');
-let removeWheelchairButton = document.querySelector('remove-wheelchair-button');
-let removeShowerChairButton = document.querySelector('remove-shower-chair-button');
-let removeCrutchesButton = document.querySelector('remove-crutches-button');
+let donateWheelchairButton = document.querySelector('.donate-wheelchair-button');
+let donateShowerChairButton = document.querySelector('.donate-shower-chair-button');
+let donateCrutchesButton = document.querySelector('.donate-crutches-button');
+let removeWheelchairButton = document.querySelector('.remove-wheelchair-button');
+let removeShowerChairButton = document.querySelector('.remove-shower-chair-button');
+let removeCrutchesButton = document.querySelector('.remove-crutches-button');
 
 let aboutUsSection = document.querySelector('.about-us');
 let getSuppliesSection = document.querySelector('.Get-supplies');
 let donateSuppliesSection = document.querySelector('.donate-supplies');
 let supportSection = document.querySelector('.Support');
+
+let wheelchairDonatedText = document.querySelector('.wheelchair-donated-text');
+let showerChairDonatedText = document.querySelector('.shower-chair-donated-text');
+let crutchesDonatedText = document.querySelector('.crutches-donated-text');
 
 var donateWheelchair = false;
 var donateShowerChair = false;
@@ -54,29 +58,55 @@ supportButton.addEventListener('click', function() {
 // Donate supplies buttons functionality
 
 donateWheelchairButton.addEventListener('click', function() {
-    if (!donateWheelchair) {
-        donateWheelchair = true;
-        donateWheelchairButton.textContent = "Added!";
-        donateWheelchairButton.classList.remove('hidden');
-    }
+    donateWheelchair = true;
+    donateWheelchairButton.textContent = "Added!";
+    wheelchairDonatedText.classList.remove('hidden');
+    updateTotalDonated();
 });
 
 donateShowerChairButton.addEventListener('click', function() {
-    if (!donateShowerChair) {
-        donateShowerChair = true;
-        donateShowerChairButton.textContent = "Added!";
-        donateShowerChairButton.classList.remove('hidden');
-    }
+    donateShowerChair = true;
+    donateShowerChairButton.textContent = "Added!";
+    showerChairDonatedText.classList.remove('hidden');
+    updateTotalDonated();
 });
 
 donateCrutchesButton.addEventListener('click', function() {
-    if (!donateCrutches) {
-        donateCrutches = true;
-        donateCrutchesButton.textContent = "Added!";
-        donateCrutchesButton.classList.remove('hidden');
-    }
+    donateCrutches = true;
+    donateCrutchesButton.textContent = "Added!";
+    crutchesDonatedText.classList.remove('hidden');
+    updateTotalDonated();
 });
 
 // Remove donated items from list
 
+removeWheelchairButton.addEventListener('click', function() {
+    donateWheelchair = false;
+    donateWheelchairButton.textContent = "Donate Wheelchair";
+    wheelchairDonatedText.classList.add('hidden');
+    updateTotalDonated();
+});
 
+removeShowerChairButton.addEventListener('click', function() {
+    donateShowerChair = false;
+    donateShowerChairButton.textContent = "Donate Shower Chair";
+    showerChairDonatedText.classList.add('hidden');
+    updateTotalDonated();
+});
+
+removeCrutchesButton.addEventListener('click', function() {
+    donateCrutches = false;
+    donateCrutchesButton.textContent = "Donate Crutches";
+    crutchesDonatedText.classList.add('hidden');
+    updateTotalDonated();
+});
+
+function updateTotalDonated() {
+    let totalDonated = 0;
+    if (donateWheelchair) totalDonated += 100;
+    if (donateShowerChair) totalDonated += 75;
+    if (donateCrutches) totalDonated += 50;
+
+    let totalDonatedElement = document.querySelector('.donate-total-heading');
+    totalDonatedElement.textContent = `Total: $${totalDonated}`;
+}
