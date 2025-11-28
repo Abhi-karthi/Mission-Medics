@@ -11,8 +11,8 @@ let donateSuppliesSection = document.querySelector('.donate-supplies');
 let supportSection = document.querySelector('.Support');
 
 aboutUsButton.addEventListener('click', function() {
-    aboutUsSection.classList.remove('hidden');
-    getSuppliesSection.classList.add('hidden');
+    aboutUsSection.classList.remove('hidden'); // removes hidden class to unhide section
+    getSuppliesSection.classList.add('hidden'); // addes hidden class to hide section
     donateSuppliesSection.classList.add('hidden');
     supportSection.classList.add('hidden');
 });
