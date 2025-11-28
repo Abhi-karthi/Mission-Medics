@@ -87,7 +87,8 @@ body {
 /* ✨ ABOUT CARD */
 
 .about-card {
-    width: 60%;
+    width: 80%;
+    height: 80%;
     margin: auto;
     background: rgba(255, 255, 255, 0.45);
     padding: 40px;
@@ -108,6 +109,12 @@ body {
     font-size: 32px;
     color: #2d4b68;
     line-height: 1.5;
+}
+
+.contact-info {
+    font-size: 20px;
+    color: #1D3557;
+    margin-top: 15px;
 }
 
 
