@@ -303,9 +303,51 @@ body {
     font-size: 20px; /* Slightly smaller font for more text */
     color: #2d4b68;
     line-height: 1.6; /* Increased line height for readability */
-    display: block; /* Ensure the p1 elements are block level */
+    /* display: block; Ensure the p1 elements are block level */
 }
 
+.donate-total-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
+    color: #fff;
+    font-size: 20px;
+    padding: 14px 36px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    box-shadow: 0 8px 30px rgba(74, 108, 155, 0.18);
+    text-decoration: none;
+    white-space: nowrap;
+    margin: 40px auto 0 auto;
+}
+
+/* Hover / active / focus states */
+.donate-total-button:hover {
+    transform: translateY(-3px);
+    filter: brightness(0.92);
+    box-shadow: 0 12px 40px rgba(74, 108, 155, 0.25);
+}
+
+.donate-total-button:active {
+    transform: translateY(-1px) scale(0.995);
+}
+
+.donate-total-button:focus {
+    outline: 3px solid rgba(74, 108, 155, 0.16);
+    outline-offset: 3px;
+}
+
+/* Utility: full width variant for small screens or centering */
+.donate-total-button.full-width {
+    width: 100%;
+    max-width: 480px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
 
 /* ✨ Support text */
 
