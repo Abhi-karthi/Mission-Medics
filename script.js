@@ -10,6 +10,10 @@ let getSuppliesSection = document.querySelector('.Get-supplies');
 let donateSuppliesSection = document.querySelector('.donate-supplies');
 let supportSection = document.querySelector('.Support');
 
+var donateWheelchair = false;
+var donateShowerChair = false;
+var donateCrutches = false;
+
 aboutUsButton.addEventListener('click', function() {
     aboutUsSection.classList.remove('hidden'); // removes hidden class to unhide section
     getSuppliesSection.classList.add('hidden'); // addes hidden class to hide section
