@@ -203,6 +203,14 @@ body {
     gap: 30px; /* Space between the cards */
 }
 
+/* .donate-text {
+    font-size: 28px;
+    color: #1D3557;
+    text-align: center;
+    margin-bottom: 20px;
+    width: 70%;
+} */
+
 .donate-wheelchair-card,
 .donate-shower-chair-card,
 .donate-crutches-card {
@@ -227,16 +235,56 @@ body {
     margin-bottom: 20px;
 }
 
+.donate-wheelchair-button,
+.donate-shower-chair-button,
+.donate-crutches-button {
+    background: linear-gradient(135deg, #4A6C9B, #6f8ec3);
+    color: white;
+    font-size: 22px;
+    padding: 12px 30px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    
+    /* This tells the button to animate ANY change (including filter and transform) */
+    transition: 0.25s ease; 
+}
+
+/* ✨ The Hover State */
+.donate-wheelchair-button:hover,
+.donate-shower-chair-button:hover,
+.donate-crutches-button:hover {
+    /* This darkens the button to 85% brightness */
+    filter: brightness(0.85); 
+    
+    /* Optional: Moves the button up slightly (like your nav buttons) */
+    transform: translateY(-2px);
+    
+    /* Optional: Adds a subtle shadow for depth */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
 /* Style donate total */
-.donate-total {
-    font-size: 24px;
-    color: #1D3557;
-    margin-bottom: 15px;
+.donate-total-card {
+        /* Replicate the styling from .about-card but make it narrower */
+        width: 90%; /* Adjusted width for the three cards */
+        max-width: 1250px; /* A max width for larger screens */
+        margin: 0 auto;
+        margin-top: 30px;   
+        background: rgba(255, 255, 255, 0.45);
+        padding: 30px; /* Slightly less padding than about card */
+        border-radius: 25px;
+        backdrop-filter: blur(12px);
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.8s ease forwards;
 }
 
 .donate-total-heading {
     font-weight: bold;
     color: #1D3557;
+    text-align: center;
 }
 
 .wheelchair-donated,
