@@ -71,6 +71,20 @@ body {
     perspective: 1000px; /* Enables 3D depth */
 }
 
+/* --- [FIX] Section Centering --- 
+   This ensures About, Get Supplies, Donate, and Support 
+   sections all align their content (cards/buttons) to the center. 
+*/
+#section-about,
+#section-get-supplies,
+#section-donate,
+#section-support {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 .donate-cards-container {
     width: 100%;
     display: flex;
@@ -85,7 +99,7 @@ body {
 /* Applying the premium texture to all cards */
 .navbar, .about-card, .form, .donate-wheelchair-card, 
 .donate-shower-chair-card, .donate-crutches-card, 
-.donate-total-card {
+.donate-total-card, .get-supplies-card {
     background: var(--glass-surface);
     backdrop-filter: blur(40px) saturate(180%);
     -webkit-backdrop-filter: blur(40px) saturate(180%);
@@ -104,9 +118,9 @@ body {
 }
 
 /* --- THE "SOFT GLOW" INTERACTION --- */
-/* This is the refined hover effect you liked */
+/* This is the refined hover effect */
 .about-card:hover, .form:hover, .donate-wheelchair-card:hover, 
-.donate-shower-chair-card:hover, .donate-crutches-card:hover {
+.donate-shower-chair-card:hover, .donate-crutches-card:hover, .get-supplies-card:hover {
     transform: translateY(-12px) scale(1.02);
     background: rgba(255, 255, 255, 0.75); /* Brightens up */
     border-color: #fff;
@@ -171,7 +185,7 @@ body {
    6. CARD & FORM GEOMETRY
    ========================================= */
 .about-card, .form, .donate-wheelchair-card, 
-.donate-shower-chair-card, .donate-crutches-card, .donate-total-card {
+.donate-shower-chair-card, .donate-crutches-card, .donate-total-card, .get-supplies-card {
     width: 90%; 
     max-width: 900px;
     padding: 60px;
@@ -195,6 +209,64 @@ body {
     text-align: left;
 }
 
+/* Get Supplies form grid (3 rows x 2 columns) */
+.form.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* two columns */
+    gap: 20px 24px; /* row-gap column-gap */
+    align-items: start;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form.form-grid .form-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ensures the row takes full cell width */
+}
+
+.form.form-grid .form-row label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--deep-blue);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+/* --- [FIX] Input Overflow --- */
+.form.form-grid .form-row .input {
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.9);
+    font-size: 16px;
+    width: 100%; /* Forces input to fit in the grid cell */
+}
+
+/* Make the actions span both columns and center the button */
+.form.form-grid .form-actions {
+    grid-column: 1 / -1; /* span all columns */
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+/* Slightly smaller submit button variant for the form */
+.form.form-grid .submit-btn {
+    padding: 12px 36px;
+    font-size: 18px;
+    border-radius: 12px;
+}
+
+/* Responsive: collapse to single column on small screens */
+@media (max-width: 760px) {
+    .form.form-grid { grid-template-columns: 1fr; }
+
+    .donate-wheelchair-card, .donate-shower-chair-card, .donate-crutches-card,
+    .about-card, .get-supplies-card, .donate-total-card { padding: 30px; }
+}
+
 /* =========================================
    7. TYPOGRAPHY (Polished)
    ========================================= */
@@ -206,6 +278,7 @@ body {
     
     /* Deep Gradient */
     background: linear-gradient(135deg, #1E3057 20%, #4A6C9B 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     
@@ -220,8 +293,18 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* --- [FIX] Get Supplies Heading --- */
+.get-supplies-heading {
+    font-size: 36px;
+    color: var(--deep-blue);
+    margin-bottom: 30px; /* Space between title and form */
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
 .about-text, .donate-wheelchair-text, 
-.donate-shower-chair-text, .donate-crutches-text {
+.donate-shower-chair-text, .donate-crutches-text, .support-text {
     font-size: 21px;
     color: #4a5a6a; /* Softer than pure black */
     line-height: 1.6;
@@ -230,7 +313,13 @@ body {
     margin: 0 auto 30px auto;
 }
 
-.donate-heading {
+/* Support text centering specific fix */
+.support-text {
+    text-align: center;
+    font-weight: 500;
+}
+
+.donate-heading, .donate-total-heading {
     font-size: 36px;
     color: var(--deep-blue);
     margin-bottom: 15px;

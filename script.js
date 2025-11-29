@@ -127,7 +127,6 @@ function updateTotalDonated() {
     totalDonatedElement.textContent = `Total: $${totalDonated}`;
 }
 
-// Optional: Proceed to donate button action
 donateTotalButton.addEventListener('click', function() {
     if (donateWheelchair || donateShowerChair || donateCrutches) {
         alert("Redirecting to payment...");
