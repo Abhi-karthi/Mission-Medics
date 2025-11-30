@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mission Medics</title>
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init({
+            publicKey: "GDlMa3YYHZdr8PggY",
+        });
+    })();
+    </script>
 </head>
 
 <body>
@@ -31,17 +39,90 @@
             <h1 class="section-heading">Get Supplies</h1>
 
             <div class="get-supplies-card">
-                <!-- <p class="get-supplies-text">If you are in need of medical supplies, please fill out the form below:</p> -->
-                <h1 class="get-supplies-heading">Schedule a Pickup</h1>
-                <form class="form form-grid" novalidate>
+                </div>
+        </section>
+
+        <section class="donate-supplies hidden" id="section-donate">
+            <h1 class="section-heading">Donate Supplies</h1>
+
+            <section class="donate-cards-container">
+                
+                <div class="donate-wheelchair-card">
+                    <h1 class="donate-heading" id="donate-wheelchair-heading">Wheelchair</h1>
+                    <p class="donate-wheelchair-text">Donating a wheelchair fundamentally restores a person's independence and dignity, offering essential access to education, employment, and social connection.</p>
+                    <button class="donate-wheelchair-button">Donate Wheelchair</button>
+                    
+                    <div class="quantity-wrapper">
+                        <button class="donate-wheelchair-increase-button">
+                            <img src="up-arrow.jpg" class="up-arrow-image" id="wheelchair-increase-image">
+                        </button>
+                        <p class="donate-quantity" id="donate-quantity-wheelchair">0</p>
+                        <button class="donate-wheelchair-decrease-button">
+                            <img src="down-arrow.jpg" class="down-arrow-image" id="wheelchair-decrease-image">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="donate-shower-chair-card">
+                    <h1 class="donate-heading" id="donate-shower-chair-heading">Shower Chair</h1>
+                    <p class="donate-shower-chair-text">Donating a shower chair significantly enhances the safety and independence of individuals with mobility challenges. This simple donation also alleviates the caregiving burden on families.</p>
+                    <button class="donate-shower-chair-button">Donate Shower Chair</button>
+                    
+                    <div class="quantity-wrapper">
+                        <button class="donate-shower-chair-increase-button">
+                            <img src="up-arrow.jpg" class="up-arrow-image" id="shower-increase-image">
+                        </button>
+                        <p class="donate-quantity" id="donate-quantity-shower-chair">0</p>
+                        <button class="donate-shower-chair-decrease-button">
+                            <img src="down-arrow.jpg" class="down-arrow-image" id="shower-decrease-image">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="donate-crutches-card">
+                    <h1 class="donate-heading" id="donate-crutches-heading">Crutches</h1>
+                    <p class="donate-crutches-text">Donating crutches provides essential mobility support to individuals recovering from injuries or surgeries. This simple act of kindness helps recipients regain their independence.</p>
+                    <button class="donate-crutches-button">Donate Crutches</button>
+                    
+                    <div class="quantity-wrapper">
+                        <button class="donate-crutches-increase-button">
+                            <img src="up-arrow.jpg" class="up-arrow-image" id="crutches-increase-image">
+                        </button>
+                        <p class="donate-quantity" id="donate-quantity-crutches">0</p>
+                        <button class="donate-crutches-decrease-button">
+                            <img src="down-arrow.jpg" class="down-arrow-image" id="crutches-decrease-image">
+                        </button>
+                    </div>
+                </div> 
+
+                <div class="donate-total-card">
+                    <h1 class="donate-total-heading" id="donate-total-heading">Total</h1>
+                    
+                    <p class="wheelchair-donated-text hidden">
+                        Wheelchair: 1
+                        <button class="remove-wheelchair-button"><img src="trash-can-image.jpg" class="trash-can-image"></button>
+                    </p>
+                    <p class="shower-chair-donated-text hidden">
+                        Shower Chair: 1
+                        <button class="remove-shower-chair-button"><img src="trash-can-image.jpg" class="trash-can-image"></button>
+                    </p>
+                    <p class="crutches-donated-text hidden">
+                        Crutches: 1
+                        <button class="remove-crutches-button"><img src="trash-can-image.jpg" class="trash-can-image"></button>
+                    </p>
+                </div>  
+                <form class="form form-grid" id="donate-supplies-form" novalidate>
+                    <div class="form-row" id="donate-supplies-schedule-pickup-heading">
+                    <h1 class="get-supplies-heading">Schedule a Pickup</h1>
+                    </div>
                     <div class="form-row">
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required class="input">
                     </div>
 
                     <div class="form-row">
-                        <label for="address">Street Address:</label>
-                        <input type="text" id="address" name="address" required class="input">
+                        <label for="streetAddress">Street Address:</label>
+                        <input type="text" id="streetAddress" name="streetAddress" required class="input">
                     </div>
 
                     <div class="form-row">
@@ -51,12 +132,12 @@
 
                     <div class="form-row">
                         <label for="zip">Zip Code:</label>
-                        <input type="text" id="zip" name="zip" required class="input">
+                        <input type="number" id="zip" name="zip" required class="input">
                     </div>
 
                     <div class="form-row">
-                        <label for="contact">Contact Number:</label>
-                        <input type="tel" id="contact" name="contact" required class="input">
+                        <label for="phoneNumber">Contact Number:</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" required class="input">
                     </div>
 
                     <div class="form-row">
@@ -65,55 +146,15 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="submit-btn">Submit Request</button>
+                        <button type="submit" class="submit-btn" id="donation-request-submit-button">Submit Request</button>
                     </div>
                 </form>
+                </section>
 
-
-            </div>
-        </section>
-
-        <section class="donate-supplies hidden" id="section-donate">
-            <h1 class="section-heading">Donate Supplies</h1>
-            <section class="donate-cards-container">
-                
-                <div class="donate-wheelchair-card">
-                    <h1 class="donate-heading" id="donate-wheelchair-heading">Wheelchair: $200</h1>
-                    <p class="donate-wheelchair-text">Donating a wheelchair fundamentally restores a person's independence and dignity, offering essential access to education, employment, and social connection.</p>
-                    <button class="donate-wheelchair-button">Donate Wheelchair</button>
+                <div class="donate-confirmation-card hidden">
+                    <h1 class="donate-confirmation-heading">Thank You for Your Donation!</h1>
+                    <p class="donate-confirmation-text">Your generous contribution is making a difference in someone's life. You will recieve an email and call soon regarding the donation.</p>
                 </div>
-
-                <div class="donate-shower-chair-card">
-                    <h1 class="donate-heading" id="donate-shower-chair-heading">Shower Chair: $25</h1>
-                    <p class="donate-shower-chair-text">Donating a shower chair significantly enhances the safety and independence of individuals with mobility challenges. This simple donation also alleviates the caregiving burden on families.</p>
-                    <button class="donate-shower-chair-button">Donate Shower Chair</button>
-                </div>
-
-                <div class="donate-crutches-card">
-                    <h1 class="donate-heading" id="donate-crutches-heading">Crutches: $50</h1>
-                    <p class="donate-crutches-text">Donating crutches provides essential mobility support to individuals recovering from injuries or surgeries. This simple act of kindness helps recipients regain their independence.</p>
-                    <button class="donate-crutches-button">Donate Crutches</button>
-                </div>
-
-                <div class="donate-total-card">
-                    <h1 class="donate-total-heading" id="donate-total-heading">Total: $0</h1>
-                    
-                    <p class="wheelchair-donated-text hidden">
-                        <button class="remove-wheelchair-button"><img src="trash-can-image.jpg" class="trash-can-image"></button>
-                        Wheelchair
-                    </p>
-                    <p class="shower-chair-donated-text hidden">
-                        <button class="remove-shower-chair-button"><img src="trash-can-image.jpg" class="trash-can-image"></button>
-                        Shower Chair
-                    </p>
-                    <p class="crutches-donated-text hidden">
-                        <button class="remove-crutches-button"><img src="trash-can-image.jpg" class="trash-can-image"></button>
-                        Crutches
-                    </p>
-                    
-                    <button class="donate-total-button">Proceed to Donate</button>
-                </div>  
-            </section>
         </section>
 
         <section class="Support hidden" id="section-support">
