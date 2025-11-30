@@ -224,17 +224,17 @@ supplyForm.addEventListener('submit', function(event) {
         email: supplyForm.email.value
     };
 
-    // emailjs.send('service_oormfpl', 'template_ai1zyfs', formData)
-    //     .then(function() {
-    //         // Success!
-    //         alert("Request Sent! We will contact you shortly.");
-    //         pickupForm.reset();
-    //         submitBtn.innerText = originalText;
-    //     }, function(error) {
-    //         // Error!
-    //         alert("Failed to send: " + error.text);
-    //         submitBtn.innerText = originalText;
-    //     });
+    emailjs.send('service_oormfpl', 'template_ai1zyfs', formData)
+        .then(function() {
+            // Success!
+            alert("Request Sent! We will contact you shortly.");
+            pickupForm.reset();
+            submitBtn.innerText = originalText;
+        }, function(error) {
+            // Error!
+            alert("Failed to send: " + error.text);
+            submitBtn.innerText = originalText;
+        });
     
     document.querySelector('.donate-cards-container').classList.add('hidden');
     document.querySelector('.donate-confirmation-card').classList.remove('hidden');
