@@ -45,7 +45,14 @@ function switchPage(nextSectionId) {
     }
 }
 
-// --- SUPPORT LOGIC ---
+// --- GET SUPPLIES LOGIC ---
+
+// Buttons
+let requestWheelchairButton = document.querySelector('.get-wheelchair-button');
+let requestShowerChairButton = document.querySelector('.get-shower-chair-button');
+let requestCrutchesButton = document.querySelector('.get-crutches-button');
+let requestSubmitButton = document.getElementById('get-supplies-request-submit-button');
+
 
 
 // --- DONATION LOGIC ---

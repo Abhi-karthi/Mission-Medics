@@ -17,11 +17,7 @@
     --smooth-flow: cubic-bezier(0.33, 1, 0.68, 1);      /* Elegant slide */
 }
 
-/* [FIX] Prevent Layout Shift
-   Forces the scrollbar track to always exist.
-   This stops the navbar from "jumping" when switching between 
-   short pages (About Us) and long pages (Donate). 
-*/
+/* [FIX] Prevent Layout Shift */
 html {
     overflow-y: scroll;
 }
@@ -103,10 +99,11 @@ body {
    4. THE "DIAMOND" GLASS SYSTEM
    ========================================= */
 /* Applying the premium texture to all cards */
+/* [UPDATED] Added .get-supplies-selection-card and .get-supplies-form-card */
 .navbar, .about-card, .form, .donate-wheelchair-card, 
 .donate-shower-chair-card, .donate-crutches-card, 
-.donate-total-card, .get-supplies-card, 
-.schedule-pickup-card, .donate-confirmation-card {
+.donate-total-card, .get-supplies-selection-card, .get-supplies-form-card,
+.schedule-pickup-card, .donate-confirmation-card, .get-supplies-confirmation-card {
     background: var(--glass-surface);
     backdrop-filter: blur(40px) saturate(180%);
     -webkit-backdrop-filter: blur(40px) saturate(180%);
@@ -127,7 +124,8 @@ body {
 /* --- THE "SOFT GLOW" INTERACTION --- */
 .about-card:hover, .form:hover, .donate-wheelchair-card:hover, 
 .donate-shower-chair-card:hover, .donate-crutches-card:hover, 
-.get-supplies-card:hover, .schedule-pickup-card:hover, .donate-confirmation-card:hover {
+.get-supplies-selection-card:hover, .get-supplies-form-card:hover, .schedule-pickup-card:hover, 
+.donate-confirmation-card:hover, .get-supplies-confirmation-card:hover {
     transform: translateY(-12px) scale(1.02);
     background: rgba(255, 255, 255, 0.75); /* Brightens up */
     border-color: #fff;
@@ -191,10 +189,11 @@ body {
 /* =========================================
    6. CARD & FORM GEOMETRY
    ========================================= */
-/* Added 'position: relative' so we can place the corners */
+/* [UPDATED] Added separate cards for selection and form */
 .about-card, .form, .donate-wheelchair-card, 
 .donate-shower-chair-card, .donate-crutches-card, .donate-total-card, 
-.get-supplies-card, .schedule-pickup-card, .donate-confirmation-card {
+.get-supplies-selection-card, .get-supplies-form-card, .schedule-pickup-card, 
+.donate-confirmation-card, .get-supplies-confirmation-card {
     width: 90%; 
     max-width: 900px;
     padding: 60px;
@@ -238,7 +237,8 @@ body {
 }
 
 /* Special Case: Make the heading row span both columns */
-#donate-supplies-schedule-pickup-heading {
+#donate-supplies-schedule-pickup-heading,
+#get-supplies-schedule-pickup-heading {
     grid-column: 1 / -1;
     text-align: center;
 }
@@ -282,7 +282,8 @@ body {
     .form.form-grid { grid-template-columns: 1fr; }
 
     .donate-wheelchair-card, .donate-shower-chair-card, .donate-crutches-card,
-    .about-card, .get-supplies-card, .donate-total-card, .schedule-pickup-card { padding: 30px; }
+    .about-card, .get-supplies-selection-card, .get-supplies-form-card, 
+    .donate-total-card, .schedule-pickup-card { padding: 30px; }
 }
 
 /* =========================================
@@ -311,7 +312,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.get-supplies-heading {
+.get-supplies-heading, .get-supplies-confirmation-heading {
     font-size: 36px;
     color: var(--deep-blue);
     margin-bottom: 30px; /* Space between title and form */
@@ -321,7 +322,9 @@ body {
 }
 
 .about-text, .donate-wheelchair-text, 
-.donate-shower-chair-text, .donate-crutches-text, .support-text, .donate-confirmation-text {
+.donate-shower-chair-text, .donate-crutches-text, .support-text, 
+.donate-confirmation-text, .get-supplies-confirmation-text,
+.get-supplies-text, .supplies-needed-text {
     font-size: 21px;
     color: #4a5a6a; /* Softer than pure black */
     line-height: 1.6;
@@ -585,4 +588,73 @@ body {
     color: var(--deep-blue);
     min-width: 30px;
     margin: 0 5px;
+}
+
+/* =========================================
+   13. GET SUPPLIES SELECTION (VERTICAL FULL WIDTH)
+   ========================================= */
+
+/* The container for the buttons inside Card 1 */
+.get-supplies-button-container {
+    display: flex;
+    flex-direction: column; /* Stack them vertically */
+    gap: 15px; /* Space between buttons */
+    width: 100%;
+    margin: 30px 0 10px 0;
+}
+
+/* The Selection Buttons (Full Width Pill Shape) */
+.get-wheelchair-button, 
+.get-shower-chair-button, 
+.get-crutches-button {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 18px 25px;
+    
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--deep-blue);
+    
+    /* [UPDATED] Layout to stretch and space items */
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Text Left, Image Right */
+    align-items: center;
+    
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s var(--spring-bounce);
+}
+
+/* Hover Effect for Selection Buttons */
+.get-wheelchair-button:hover, 
+.get-shower-chair-button:hover, 
+.get-crutches-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(74, 108, 155, 0.15);
+    border-color: rgba(74, 108, 155, 0.2);
+}
+
+/* Click Effect */
+.get-wheelchair-button:active, 
+.get-shower-chair-button:active, 
+.get-crutches-button:active {
+    transform: scale(0.98);
+}
+
+/* The Checkbox Icon */
+.check-box-image {
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+}
+
+/* Text above the buttons */
+.supplies-needed-text {
+    font-weight: 700;
+    color: var(--deep-blue);
+    margin-bottom: 0px;
+    text-align: left;
+    margin-left: 5px;
 }

@@ -37,9 +37,69 @@
 
         <section class="Get-supplies hidden" id="section-get-supplies">
             <h1 class="section-heading">Get Supplies</h1>
-
-            <div class="get-supplies-card">
+            
+            <p class="get-supplies-text">If you are in need of medical supplies, please fill out the form below to request assistance:</p>
+            
+            <div class="get-supplies-selection-card">
+                <p class="supplies-needed-text">Select the supplies that you need:</p>
+                <div class="get-supplies-button-container">
+                    <button class="get-wheelchair-button">
+                        Get Wheelchair
+                        <img src="Assets/check-box-grey.png" class="check-box-image" id="wheelchair-check-box-image">
+                    </button>
+                    <button class="get-shower-chair-button">
+                        Get Shower Chair
+                        <img src="Assets/check-box-grey.png" class="check-box-image" id="shower-chair-check-box-image">
+                    </button>
+                    <button class="get-crutches-button">
+                        Get Crutches
+                        <img src="Assets/check-box-grey.png" class="check-box-image" id="crutches-check-box-image">
+                    </button>
                 </div>
+            </div>
+
+                <form class="form form-grid" id="get-supplies-form" novalidate>
+                    <div class="form-row" id="get-supplies-schedule-pickup-heading">
+                        <h1 class="get-supplies-heading">Contact Information</h1>
+                    </div>
+                    <div class="form-row">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" required class="input">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="streetAddress">Street Address:</label>
+                        <input type="text" id="streetAddress" name="streetAddress" required class="input">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" required class="input">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="zip">Zip Code:</label>
+                        <input type="number" id="zip" name="zip" required class="input">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="phoneNumber">Contact Number:</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" required class="input">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="email">Contact Email:</label>
+                        <input type="email" id="email" name="email" required class="input">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn" id="get-supplies-request-submit-button">Submit Request</button>
+                    </div>
+                </form> 
+            <div class="get-supplies-confirmation-card hidden">
+                <h1 class="get-supplies-confirmation-heading">Request Submitted!</h1>
+                <p class="get-supplies-confirmation-text">Your request for medical supplies has been submitted successfully. You will recieve an email and call soon regarding your request.</p>
+            </div>
         </section>
 
         <section class="donate-supplies hidden" id="section-donate">
