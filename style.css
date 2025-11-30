@@ -17,6 +17,15 @@
     --smooth-flow: cubic-bezier(0.33, 1, 0.68, 1);      /* Elegant slide */
 }
 
+/* [FIX] Prevent Layout Shift
+   Forces the scrollbar track to always exist.
+   This stops the navbar from "jumping" when switching between 
+   short pages (About Us) and long pages (Donate). 
+*/
+html {
+    overflow-y: scroll;
+}
+
 /* Premium Selection Color */
 ::selection {
     background: var(--primary-blue);
@@ -94,7 +103,6 @@ body {
    4. THE "DIAMOND" GLASS SYSTEM
    ========================================= */
 /* Applying the premium texture to all cards */
-/* [UPDATED] Added .schedule-pickup-card and .donate-confirmation-card */
 .navbar, .about-card, .form, .donate-wheelchair-card, 
 .donate-shower-chair-card, .donate-crutches-card, 
 .donate-total-card, .get-supplies-card, 
@@ -544,14 +552,23 @@ body {
     align-items: center;
 }
 
+/* [FIX] Added missing hover states for Shower and Crutches */
 .donate-wheelchair-increase-button:hover, 
-.donate-wheelchair-decrease-button:hover {
+.donate-wheelchair-decrease-button:hover,
+.donate-shower-chair-increase-button:hover, 
+.donate-shower-chair-decrease-button:hover,
+.donate-crutches-increase-button:hover, 
+.donate-crutches-decrease-button:hover {
     transform: scale(1.1);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .donate-wheelchair-increase-button:active, 
-.donate-wheelchair-decrease-button:active {
+.donate-wheelchair-decrease-button:active,
+.donate-shower-chair-increase-button:active, 
+.donate-shower-chair-decrease-button:active,
+.donate-crutches-increase-button:active, 
+.donate-crutches-decrease-button:active {
     transform: scale(0.95);
 }
 
