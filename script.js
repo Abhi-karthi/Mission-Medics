@@ -89,71 +89,83 @@ requestCrutchesButton.addEventListener('click', function() {
     }
 });
 
-// -- Request Form Submission --
+let requestForm = document.getElementById('get-supplies-form');
 
-let pickupForm = document.getElementById('get-supplies-form');
-
-pickupForm.addEventListener('submit', function(event) {
+requestForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent default form submission
 
     let messageArray = [];
     let messageString = "";
 
-    if (wheelchairSelected) {
-        messageArray.push("wheelchair");
-    } else if (showerChairSelected) {
-        messageArray.push("shower chair");
-    } else if (crutchesSelected) {
+    // FIX #1: Corrected variable names to match the top definitions (Capital C)
+    if (wheelChairSelected) {
+        messageArray.push("a wheelchair");
+    } 
+    // Note: Used independent if statements here so they don't cancel each other out
+    // If you need multiple items, use 'if' for all. If only one allowed, 'else if' is fine.
+    if (showerChairSelected) {
+        messageArray.push("a shower chair");
+    } 
+    if (crutchesSelected) {
         messageArray.push("crutches");
     }
 
+    // Logic to build the sentence "A, B, and C"
     if (messageArray.length === 0) { 
+        alert("Please select at least one item.");
         return; 
+    } 
+    
+    // FIX #2: Fixed typo 'messageArary' to 'messageArray'
+    // FIX #3: Fixed syntax from .at[i] to [i]
+    if (messageArray.length === 1) {
+        messageString = messageArray[0];
     } else if (messageArray.length === 2) {
-        messageArary.splice(-2, 0, " and ");
-    } else if (messageArray.length >= 3) {
-        for (let i = 0; i < messageArray.length - 1; i++) {
-            messageArray.at[i] += ", ";
-        }
-        messageArray.splice(-2, 0, "and ");
-    }
-
-    for (let i = 0; i < messageArray.length; i++) {
-        messageString += messageArray[i];
+        messageString = messageArray[0] + " and " + messageArray[1];
+    } else {
+        // For 3 or more items
+        let lastItem = messageArray.pop(); // Remove the last item
+        messageString = messageArray.join(", ") + ", and " + lastItem;
     }
 
     // Simple validation
-    if (!pickupForm.checkValidity()) {
+    if (!requestForm.checkValidity()) {
         alert("Please fill out all required fields.");
         return;     
     }
 
     // Gather form data
     let formData = {
-        name: pickupForm.name.value,
-        streetAddress: pickupForm.streetAddress.value,
-        city: pickupForm.city.value,
-        zip: pickupForm.zip.value,
-        phoneNumber: pickupForm.phoneNumber.value,
-        email: pickupForm.email.value,  
+        name: requestForm.name.value,
+        streetAddress: requestForm.streetAddress.value,
+        city: requestForm.city.value,
+        zip: requestForm.zip.value,
+        phoneNumber: requestForm.phoneNumber.value,
+        email: requestForm.email.value,  
         message: messageString
     };
+
+    // Define the button for the loading state
+    const submitBtn = document.getElementById('get-supplies-request-submit-button');
+    const originalText = submitBtn.innerText;
+    submitBtn.innerText = "Sending...";
 
     emailjs.send('service_oormfpl', 'template_rvzmg0q', formData)
         .then(function() {
             // Success!
             alert("Request Sent! We will contact you shortly.");
-            pickupForm.reset();
-            submitBtn.innerText = originalText;
+            requestForm.reset();
+            submitBtn.innerText = originalText; // FIX #4: Now these variables exist
+            
+            // Hide form and show confirmation
+            document.querySelector('.get-supplies-cards-container').classList.add('hidden');
+            document.querySelector('.get-supplies-confirmation-card').classList.remove('hidden');
+
         }, function(error) {
             // Error!
-            alert("Failed to send: " + error.text);
-            submitBtn.innerText = originalText;
+            alert("Failed to send: " + JSON.stringify(error));
+            submitBtn.innerText = originalText; // FIX #4: Now these variables exist
         });
-    
-    document.querySelector('.get-supplies-button-container').classList.add('hidden');
-    document.querySelector('.get-supplies-form-card').classList.add('hidden');
-    document.querySelector('.get-supplies-confirmation-card').classList.remove('hidden');
 });
 
 // --- DONATION LOGIC ---
@@ -336,7 +348,8 @@ supplyForm.addEventListener('submit', function(event) {
         .then(function() {
             // Success!
             alert("Request Sent! We will contact you shortly.");
-            pickupForm.reset();
+            requestForm
+        .reset();
             submitBtn.innerText = originalText;
         }, function(error) {
             // Error!

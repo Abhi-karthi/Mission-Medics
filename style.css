@@ -87,6 +87,14 @@ body {
     width: 100%;
 }
 
+/* [NEW FIX] This makes your new container center its children */
+.get-supplies-cards-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
 .donate-cards-container {
     width: 100%;
     display: flex;
@@ -99,7 +107,6 @@ body {
    4. THE "DIAMOND" GLASS SYSTEM
    ========================================= */
 /* Applying the premium texture to all cards */
-/* [UPDATED] Added .get-supplies-selection-card and .get-supplies-form-card */
 .navbar, .about-card, .form, .donate-wheelchair-card, 
 .donate-shower-chair-card, .donate-crutches-card, 
 .donate-total-card, .get-supplies-selection-card, .get-supplies-form-card,
@@ -189,7 +196,6 @@ body {
 /* =========================================
    6. CARD & FORM GEOMETRY
    ========================================= */
-/* [UPDATED] Added separate cards for selection and form */
 .about-card, .form, .donate-wheelchair-card, 
 .donate-shower-chair-card, .donate-crutches-card, .donate-total-card, 
 .get-supplies-selection-card, .get-supplies-form-card, .schedule-pickup-card, 
@@ -322,7 +328,7 @@ body {
     letter-spacing: -0.5px;
     text-align: center;
 
-    /* [ADDED] Animation */
+    /* Animation */
     opacity: 0;
     animation: revealText 1s var(--smooth-flow) forwards 0.25s;
 }
@@ -336,9 +342,9 @@ body {
     line-height: 1.6;
     font-weight: 400;
     max-width: 80ch;
-    margin: 0 auto 30px auto;   
+    margin: 0 auto 30px auto;
 
-    /* [ADDED] Animation */
+    /* Animation */
     opacity: 0;
     animation: revealText 1s var(--smooth-flow) forwards 0.3s;
 }
@@ -356,7 +362,7 @@ body {
     font-weight: 800;
     letter-spacing: -0.5px;
     
-    /* [ADDED] Animation (Optional: if you want headers inside cards to fade too) */
+    /* Animation */
     opacity: 0;
     animation: revealText 1s var(--smooth-flow) forwards 0.3s;
 }
@@ -569,7 +575,6 @@ body {
     align-items: center;
 }
 
-/* [FIX] Added missing hover states for Shower and Crutches */
 .donate-wheelchair-increase-button:hover, 
 .donate-wheelchair-decrease-button:hover,
 .donate-shower-chair-increase-button:hover, 
@@ -630,7 +635,7 @@ body {
     font-weight: 600;
     color: var(--deep-blue);
     
-    /* [UPDATED] Layout to stretch and space items */
+    /* Layout to stretch and space items */
     width: 100%;
     display: flex;
     justify-content: space-between; /* Text Left, Image Right */
