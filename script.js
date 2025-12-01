@@ -53,7 +53,108 @@ let requestShowerChairButton = document.querySelector('.get-shower-chair-button'
 let requestCrutchesButton = document.querySelector('.get-crutches-button');
 let requestSubmitButton = document.getElementById('get-supplies-request-submit-button');
 
+var wheelChairSelected = false;
+var showerChairSelected = false;
+var crutchesSelected = false;
 
+// Request Item Functionality
+
+requestWheelchairButton.addEventListener('click', function() {
+    if (!wheelChairSelected) {
+        requestWheelchairButton.querySelector('img').src = "Assets/check-box-blue.png";
+        wheelChairSelected = true;
+    } else {
+        requestWheelchairButton.querySelector('img').src = "Assets/check-box-grey.png";
+        wheelChairSelected = false;
+    }
+});
+
+requestShowerChairButton.addEventListener('click', function() {
+    if (!showerChairSelected) {
+        requestShowerChairButton.querySelector('img').src = "Assets/check-box-blue.png";
+        showerChairSelected = true;
+    } else {
+        requestShowerChairButton.querySelector('img').src = "Assets/check-box-grey.png";
+        showerChairSelected = false;
+    }
+});
+
+requestCrutchesButton.addEventListener('click', function() {
+    if (!crutchesSelected) {
+        requestCrutchesButton.querySelector('img').src = "Assets/check-box-blue.png";
+        crutchesSelected = true;
+    } else {
+        requestCrutchesButton.querySelector('img').src = "Assets/check-box-grey.png";
+        crutchesSelected = false;
+    }
+});
+
+// -- Request Form Submission --
+
+let pickupForm = document.getElementById('get-supplies-form');
+
+pickupForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    let messageArray = [];
+    let messageString = "";
+
+    if (wheelchairSelected) {
+        messageArray.push("wheelchair");
+    } else if (showerChairSelected) {
+        messageArray.push("shower chair");
+    } else if (crutchesSelected) {
+        messageArray.push("crutches");
+    }
+
+    if (messageArray.length === 0) { 
+        return; 
+    } else if (messageArray.length === 2) {
+        messageArary.splice(-2, 0, " and ");
+    } else if (messageArray.length >= 3) {
+        for (let i = 0; i < messageArray.length - 1; i++) {
+            messageArray.at[i] += ", ";
+        }
+        messageArray.splice(-2, 0, "and ");
+    }
+
+    for (let i = 0; i < messageArray.length; i++) {
+        messageString += messageArray[i];
+    }
+
+    // Simple validation
+    if (!pickupForm.checkValidity()) {
+        alert("Please fill out all required fields.");
+        return;     
+    }
+
+    // Gather form data
+    let formData = {
+        name: pickupForm.name.value,
+        streetAddress: pickupForm.streetAddress.value,
+        city: pickupForm.city.value,
+        zip: pickupForm.zip.value,
+        phoneNumber: pickupForm.phoneNumber.value,
+        email: pickupForm.email.value,  
+        message: messageString
+    };
+
+    emailjs.send('service_oormfpl', 'template_rvzmg0q', formData)
+        .then(function() {
+            // Success!
+            alert("Request Sent! We will contact you shortly.");
+            pickupForm.reset();
+            submitBtn.innerText = originalText;
+        }, function(error) {
+            // Error!
+            alert("Failed to send: " + error.text);
+            submitBtn.innerText = originalText;
+        });
+    
+    document.querySelector('.get-supplies-button-container').classList.add('hidden');
+    document.querySelector('.get-supplies-form-card').classList.add('hidden');
+    document.querySelector('.get-supplies-confirmation-card').classList.remove('hidden');
+});
 
 // --- DONATION LOGIC ---
 

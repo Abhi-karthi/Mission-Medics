@@ -287,7 +287,7 @@ body {
 }
 
 /* =========================================
-   7. TYPOGRAPHY (Polished)
+   7. TYPOGRAPHY (Polished & Animated)
    ========================================= */
 .section-heading {
     font-size: 72px;
@@ -303,6 +303,8 @@ body {
     
     text-align: center;
     margin-bottom: 50px;
+    
+    /* Animation */
     opacity: 0;
     animation: revealText 1s var(--smooth-flow) forwards 0.2s;
 }
@@ -315,10 +317,14 @@ body {
 .get-supplies-heading, .get-supplies-confirmation-heading {
     font-size: 36px;
     color: var(--deep-blue);
-    margin-bottom: 30px; /* Space between title and form */
+    margin-bottom: 30px; 
     font-weight: 800;
     letter-spacing: -0.5px;
     text-align: center;
+
+    /* [ADDED] Animation */
+    opacity: 0;
+    animation: revealText 1s var(--smooth-flow) forwards 0.25s;
 }
 
 .about-text, .donate-wheelchair-text, 
@@ -326,11 +332,15 @@ body {
 .donate-confirmation-text, .get-supplies-confirmation-text,
 .get-supplies-text, .supplies-needed-text {
     font-size: 21px;
-    color: #4a5a6a; /* Softer than pure black */
+    color: #4a5a6a; 
     line-height: 1.6;
     font-weight: 400;
     max-width: 80ch;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 30px auto;   
+
+    /* [ADDED] Animation */
+    opacity: 0;
+    animation: revealText 1s var(--smooth-flow) forwards 0.3s;
 }
 
 /* Support text centering specific fix */
@@ -345,6 +355,10 @@ body {
     margin-bottom: 15px;
     font-weight: 800;
     letter-spacing: -0.5px;
+    
+    /* [ADDED] Animation (Optional: if you want headers inside cards to fade too) */
+    opacity: 0;
+    animation: revealText 1s var(--smooth-flow) forwards 0.3s;
 }
 
 /* =========================================
