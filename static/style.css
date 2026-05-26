@@ -230,12 +230,33 @@ body {
     transition: all 0.15s var(--smooth-flow);
     position: relative;
     overflow: hidden;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
 }
 
 .nav-btn:hover, .nav-btn.active {
     background: white;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     color: var(--primary-blue);
+}
+
+ .navbar-container {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 20px;
+     position: fixed;
+     top: 30px;
+     left: 50%;
+     transform: translateX(-50%);
+     z-index: 5001;
+ }
+
+.logo-image-navbar {
+    width: 90px;
+    display: block;
 }
 
 /* =========================================
@@ -313,6 +334,27 @@ body {
     background: rgba(255,255,255,0.9);
     font-size: 16px;
     width: 100%;
+}
+
+ .other-button-container {
+     display: flex;
+     align-items: center;
+     flex: 1;
+     gap: 12px;
+
+     /*padding-left: 5%;*/
+ }
+
+#other-input {
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.8);
+    font-size: 16px;
+    flex: 1;
+    height: 15px;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .form.form-grid .form-actions {
@@ -633,9 +675,24 @@ body {
     margin: 30px 0 10px 0;
 }
 
-.get-wheelchair-button,
-.get-shower-chair-button,
-.get-crutches-button {
+.specific-supplies-button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+    /*margin: 30px 0 10px 0;*/
+}
+
+.specific-supplies-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    /*margin: 30px 0 10px 0;*/
+}
+
+.other-button
+{
     background: white;
     border: 2px solid transparent;
     border-radius: 20px;
@@ -652,17 +709,83 @@ body {
     transition: all 0.2s var(--spring-bounce);
 }
 
-.get-wheelchair-button:hover,
-.get-shower-chair-button:hover,
-.get-crutches-button:hover {
+.get-wheelchairs-button,
+.get-power-chairs-button,
+.get-scooters-button,
+.get-walkers-with-wheels-button,
+.get-rollators-button,
+.get-hospital-beds-button,
+.get-hoyer-lifts-button,
+.get-trapezes-button,
+.get-shower-chairs-button,
+.get-tub-transfer-benches-button,
+.get-commodes-button,
+.get-raised-toilet-seats-button,
+.get-grab-bars-button,
+.get-canes-button,
+.get-crutches-button,
+.get-transfer-boards-button,
+.get-bed-rails-button,
+.get-overbed-tables-button {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 18px 25px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--deep-blue);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.2s var(--spring-bounce);
+}
+
+.get-wheelchairs-button:hover,
+.get-power-chairs-button:hover,
+.get-scooters-button:hover,
+.get-walkers-with-wheels-button:hover,
+.get-rollators-button:hover,
+.get-hospital-beds-button:hover,
+.get-hoyer-lifts-button:hover,
+.get-trapezes-button:hover,
+.get-shower-chairs-button:hover,
+.get-tub-transfer-benches-button:hover,
+.get-commodes-button:hover,
+.get-raised-toilet-seats-button:hover,
+.get-grab-bars-button:hover,
+.get-canes-button:hover,
+.get-crutches-button:hover,
+.get-transfer-boards-button:hover,
+.get-bed-rails-button:hover,
+.get-overbed-tables-button:hover,
+.other-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 15px rgba(74, 108, 155, 0.15);
     border-color: rgba(74, 108, 155, 0.2);
 }
 
-.get-wheelchair-button:active,
-.get-shower-chair-button:active,
-.get-crutches-button:active {
+.get-wheelchairs-button:active,
+.get-power-chairs-button:active,
+.get-scooters-button:active,
+.get-walkers-with-wheels-button:active,
+.get-rollators-button:active,
+.get-hospital-beds-button:active,
+.get-hoyer-lifts-button:active,
+.get-trapezes-button:active,
+.get-shower-chairs-button:active,
+.get-tub-transfer-benches-button:active,
+.get-commodes-button:active,
+.get-raised-toilet-seats-button:active,
+.get-grab-bars-button:active,
+.get-canes-button:active,
+.get-crutches-button:active,
+.get-transfer-boards-button:active,
+.get-bed-rails-button:active,
+.get-overbed-tables-button:active,
+.other-button:active {
     transform: scale(0.98);
 }
 
