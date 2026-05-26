@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Mission Medics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" class="logo-image-navbar">
+        <a href="/" class="nav-btn">About Us</a>
+        <a href="/get-supplies" class="nav-btn">Get Supplies</a>
+        <a href="/donate" class="nav-btn active">Donate Supplies</a>
+        <a href="/support" class="nav-btn">Support</a>
+    </nav>
+
+    <div class="main-container">
+        <h1 class="section-heading">Donate Supplies</h1>
+
+        <div id="donate-ui" class="cards-container">
+            <div class="glass-card donate-logic-card" data-item="wheelchair" data-label="Wheelchair">
+                <h1 class="card-heading">Wheelchair</h1>
+                <p class="card-text">Donating a wheelchair fundamentally restores a person's independence and dignity.</p>
+                <button class="btn-primary btn-add-donate">Donate Wheelchair</button>
+                <div class="qty-wrapper">
+                    <button class="btn-qty btn-qty-inc"><img src="{{ url_for('static', filename='assets/up-arrow.jpg') }}"></button>
+                    <p class="qty-display">0</p>
+                    <button class="btn-qty btn-qty-dec"><img src="{{ url_for('static', filename='assets/down-arrow.jpg') }}"></button>
+                </div>
+            </div>
+
+            <div class="glass-card donate-logic-card" data-item="showerChair" data-label="Shower Chair">
+                <h1 class="card-heading">Shower Chair</h1>
+                <p class="card-text">Donating a shower chair significantly enhances safety and independence.</p>
+                <button class="btn-primary btn-add-donate">Donate Shower Chair</button>
+                <div class="qty-wrapper">
+                    <button class="btn-qty btn-qty-inc"><img src="{{ url_for('static', filename='assets/up-arrow.jpg') }}"></button>
+                    <p class="qty-display">0</p>
+                    <button class="btn-qty btn-qty-dec"><img src="{{ url_for('static', filename='assets/down-arrow.jpg') }}"></button>
+                </div>
+            </div>
+
+            <div class="glass-card donate-logic-card" data-item="crutches" data-label="Crutches">
+                <h1 class="card-heading">Crutches</h1>
+                <p class="card-text">Donating crutches provides essential mobility support for recovery.</p>
+                <button class="btn-primary btn-add-donate">Donate Crutches</button>
+                <div class="qty-wrapper">
+                    <button class="btn-qty btn-qty-inc"><img src="{{ url_for('static', filename='assets/up-arrow.jpg') }}"></button>
+                    <p class="qty-display">0</p>
+                    <button class="btn-qty btn-qty-dec"><img src="{{ url_for('static', filename='assets/down-arrow.jpg') }}"></button>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h1 class="card-heading">Total Donation</h1>
+                <div id="donation-cart-items">
+                    </div>
+            </div>
+
+            <div class="glass-card">
+                <form class="form-grid" id="donate-supplies-form" novalidate>
+                    <div class="form-row full-width"><h1 class="card-heading">Schedule a Pickup</h1></div>
+                    <div class="form-row"><label>Full Name:</label><input type="text" name="name" required class="input"></div>
+                    <div class="form-row"><label>Street Address:</label><input type="text" name="streetAddress" required class="input"></div>
+                    <div class="form-row"><label>City:</label><input type="text" name="city" required class="input"></div>
+                    <div class="form-row"><label>Zip Code:</label><input type="number" name="zip" required class="input"></div>
+                    <div class="form-row"><label>Contact Number:</label><input type="tel" name="phoneNumber" required class="input"></div>
+                    <div class="form-row"><label>Contact Email:</label><input type="email" name="email" required class="input"></div>
+                    <div class="form-row full-width"><button type="submit" class="btn-primary" id="donate-submit-btn">Submit Request</button></div>
+                </form>
+            </div>
+        </div>
+
+        <div id="donate-success" class="glass-card hidden">
+            <h1 class="card-heading">Thank You!</h1>
+            <p class="card-text">Your generous contribution is making a difference. We will contact you soon.</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

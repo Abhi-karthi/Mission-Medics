@@ -1,418 +1,218 @@
 'use strict';
 
-// --- GET SUPPLIES LOGIC ---
+// ==========================================
+// 1. GET SUPPLIES LOGIC
+// ==========================================
+const selectedSupplies = new Set();
+const selectButtons = document.querySelectorAll('.btn-select:not(.other-btn)');
+const otherBtn = document.querySelector('.other-btn');
+const otherInput = document.getElementById('other-input');
+const otherCheck = document.getElementById('other-check-box-image');
 
-// Buttons
-let requestWheelchairButton = document.querySelector('.get-wheelchair-button');
-let requestShowerChairButton = document.querySelector('.get-shower-chair-button');
-let requestCrutchesButton = document.querySelector('.get-crutches-button');
-let requestSubmitButton = document.getElementById('get-supplies-request-submit-button');
+selectButtons.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const itemName = this.textContent.trim();
+        const img = this.querySelector('.check-icon');
 
-var wheelChairSelected = false;
-var showerChairSelected = false;
-var crutchesSelected = false;
-
-if (requestWheelchairButton) {
-    requestWheelchairButton.addEventListener('click', function() {
-        if (!wheelChairSelected) {
-            requestWheelchairButton.querySelector('img').src = "static/assets/check-box-blue.png";
-            wheelChairSelected = true;
+        if (selectedSupplies.has(itemName)) {
+            selectedSupplies.delete(itemName);
+            img.src = "static/assets/check-box-grey.png";
         } else {
-            requestWheelchairButton.querySelector('img').src = "static/assets/check-box-grey.png";
-            wheelChairSelected = false;
+            selectedSupplies.add(itemName);
+            img.src = "static/assets/check-box-blue.png";
         }
     });
-}
-
-if (requestShowerChairButton) {
-    requestShowerChairButton.addEventListener('click', function() {
-        if (!showerChairSelected) {
-            requestShowerChairButton.querySelector('img').src = "static/assets/check-box-blue.png";
-            showerChairSelected = true;
-        } else {
-            requestShowerChairButton.querySelector('img').src = "static/assets/check-box-grey.png";
-            showerChairSelected = false;
-        }
-    });
-}
-
-if (requestCrutchesButton) {
-    requestCrutchesButton.addEventListener('click', function() {
-        if (!crutchesSelected) {
-            requestCrutchesButton.querySelector('img').src = "static/assets/check-box-blue.png";
-            crutchesSelected = true;
-        } else {
-            requestCrutchesButton.querySelector('img').src = "static/assets/check-box-grey.png";
-            crutchesSelected = false;
-        }
-    });
-}
-
-let requestForm = document.getElementById('get-supplies-form');
-
-if (requestForm) {
-    requestForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        let messageArray = [];
-        let messageString = "";
-
-        if (wheelChairSelected) {
-            messageArray.push("a wheelchair");
-        }
-        if (showerChairSelected) {
-            messageArray.push("a shower chair");
-        }
-        if (crutchesSelected) {
-            messageArray.push("crutches");
-        }
-
-        if (messageArray.length === 0) {
-            alert("Please select at least one item.");
-            return;
-        }
-
-        if (messageArray.length === 1) {
-            messageString = messageArray[0];
-        } else if (messageArray.length === 2) {
-            messageString = messageArray[0] + " and " + messageArray[1];
-        } else {
-            let lastItem = messageArray.pop();
-            messageString = messageArray.join(", ") + ", and " + lastItem;
-        }
-
-        if (!requestForm.checkValidity()) {
-            alert("Please fill out all required fields.");
-            return;
-        }
-
-        let formData = {
-            name: requestForm.name.value,
-            streetAddress: requestForm.streetAddress.value,
-            city: requestForm.city.value,
-            zip: requestForm.zip.value,
-            phoneNumber: requestForm.phoneNumber.value,
-            email: requestForm.email.value,
-            message: messageString
-        };
-
-        const submitBtn = document.getElementById('get-supplies-request-submit-button');
-        const originalText = submitBtn.innerText;
-        submitBtn.innerText = "Sending...";
-
-        emailjs.send('service_oormfpl', 'template_rvzmg0q', formData)
-            .then(function() {
-                alert("Request Sent! We will contact you shortly.");
-                requestForm.reset();
-                submitBtn.innerText = originalText;
-
-                document.querySelector('.get-supplies-cards-container').classList.add('hidden');
-                document.querySelector('.get-supplies-confirmation-card').classList.remove('hidden');
-
-            }, function(error) {
-                alert("Failed to send: " + JSON.stringify(error));
-                submitBtn.innerText = originalText;
-            });
-    });
-}
-
-// --- DONATION LOGIC ---
-
-let donateWheelchairButton = document.querySelector('.donate-wheelchair-button');
-let donateShowerChairButton = document.querySelector('.donate-shower-chair-button');
-let donateCrutchesButton = document.querySelector('.donate-crutches-button');
-
-let removeWheelchairButton = document.querySelector('.remove-wheelchair-button');
-let removeShowerChairButton = document.querySelector('.remove-shower-chair-button');
-let removeCrutchesButton = document.querySelector('.remove-crutches-button');
-
-let wheelchairDonatedText = document.querySelector('.wheelchair-donated-text');
-let showerChairDonatedText = document.querySelector('.shower-chair-donated-text');
-let crutchesDonatedText = document.querySelector('.crutches-donated-text');
-
-var donateWheelchair = false;
-var donateShowerChair = false;
-var donateCrutches = false;
-
-let wheelchairUpCountButton = document.querySelector('.donate-wheelchair-increase-button');
-let wheelchairDownCountButton = document.querySelector('.donate-wheelchair-decrease-button');
-let showerChairUpCountButton = document.querySelector('.donate-shower-chair-increase-button');
-let showerChairDownCountButton = document.querySelector('.donate-shower-chair-decrease-button');
-let crutchesUpCountButton = document.querySelector('.donate-crutches-increase-button');
-let crutchesDownCountButton = document.querySelector('.donate-crutches-decrease-button');
-
-var wheelchairCount = 0;
-var showerChairCount = 0;
-var crutchesCount = 0;
-
-if (donateWheelchairButton) {
-    donateWheelchairButton.addEventListener('click', function() {
-        donateWheelchair = true;
-        donateWheelchairButton.textContent = "Added!";
-        wheelchairDonatedText.classList.remove('hidden');
-        wheelchairCount = 1;
-        document.getElementById('donate-quantity-wheelchair').textContent = wheelchairCount;
-        wheelchairDonatedText.firstChild.nodeValue = `Wheelchair: ${wheelchairCount} `;
-    });
-}
-
-if (donateShowerChairButton) {
-    donateShowerChairButton.addEventListener('click', function() {
-        donateShowerChair = true;
-        donateShowerChairButton.textContent = "Added!";
-        showerChairDonatedText.classList.remove('hidden');
-        showerChairCount = 1;
-        document.getElementById('donate-quantity-shower-chair').textContent = showerChairCount;
-        showerChairDonatedText.firstChild.nodeValue = `Shower Chair: ${showerChairCount} `;
-    });
-}
-
-if (donateCrutchesButton) {
-    donateCrutchesButton.addEventListener('click', function() {
-        donateCrutches = true;
-        donateCrutchesButton.textContent = "Added!";
-        crutchesDonatedText.classList.remove('hidden');
-        crutchesCount = 1;
-        document.getElementById('donate-quantity-crutches').textContent = crutchesCount;
-        crutchesDonatedText.firstChild.nodeValue = `Crutches: ${crutchesCount} `;
-    });
-}
-
-if (removeWheelchairButton) {
-    removeWheelchairButton.addEventListener('click', function() {
-        donateWheelchair = false;
-        donateWheelchairButton.textContent = "Donate Wheelchair";
-        wheelchairDonatedText.classList.add('hidden');
-        wheelchairCount = 0;
-        document.getElementById('donate-quantity-wheelchair').textContent = wheelchairCount;
-    });
-}
-
-if (removeShowerChairButton) {
-    removeShowerChairButton.addEventListener('click', function() {
-        donateShowerChair = false;
-        donateShowerChairButton.textContent = "Donate Shower Chair";
-        showerChairDonatedText.classList.add('hidden');
-        showerChairCount = 0;
-        document.getElementById('donate-quantity-shower-chair').textContent = showerChairCount;
-    });
-}
-
-if (removeCrutchesButton) {
-    removeCrutchesButton.addEventListener('click', function() {
-        donateCrutches = false;
-        donateCrutchesButton.textContent = "Donate Crutches";
-        crutchesDonatedText.classList.add('hidden');
-        crutchesCount = 0;
-        document.getElementById('donate-quantity-crutches').textContent = crutchesCount;
-    });
-}
-
-if (wheelchairUpCountButton) {
-    wheelchairUpCountButton.addEventListener('click', function() {
-        if (donateWheelchair) {
-            wheelchairCount++;
-            document.getElementById('donate-quantity-wheelchair').textContent = wheelchairCount;
-            wheelchairDonatedText.firstChild.nodeValue = `Wheelchair: ${wheelchairCount} `;
-        }
-    });
-}
-
-if (wheelchairDownCountButton) {
-    wheelchairDownCountButton.addEventListener('click', function() {
-        if (wheelchairCount > 1 && donateWheelchair) {
-            wheelchairCount--;
-            document.getElementById('donate-quantity-wheelchair').textContent = wheelchairCount;
-            wheelchairDonatedText.firstChild.nodeValue = `Wheelchair: ${wheelchairCount} `;
-        }
-    });
-}
-
-if (showerChairUpCountButton) {
-    showerChairUpCountButton.addEventListener('click', function() {
-        if (donateShowerChair) {
-            showerChairCount++;
-            document.getElementById('donate-quantity-shower-chair').textContent = showerChairCount;
-            showerChairDonatedText.firstChild.nodeValue = `Shower Chair: ${showerChairCount} `;
-        }
-    });
-}
-
-if (showerChairDownCountButton) {
-    showerChairDownCountButton.addEventListener('click', function() {
-        if (showerChairCount > 1 && donateShowerChair) {
-            showerChairCount--;
-            document.getElementById('donate-quantity-shower-chair').textContent = showerChairCount;
-            showerChairDonatedText.firstChild.nodeValue = `Shower Chair: ${showerChairCount} `;
-        }
-    });
-}
-
-if (crutchesUpCountButton) {
-    crutchesUpCountButton.addEventListener('click', function() {
-        if (donateCrutches) {
-            crutchesCount++;
-            document.getElementById('donate-quantity-crutches').textContent = crutchesCount;
-            crutchesDonatedText.firstChild.nodeValue = `Crutches: ${crutchesCount} `;
-        }
-    });
-}
-
-if (crutchesDownCountButton) {
-    crutchesDownCountButton.addEventListener('click', function() {
-        if (crutchesCount > 1 && donateCrutches) {
-            crutchesCount--;
-            document.getElementById('donate-quantity-crutches').textContent = crutchesCount;
-            crutchesDonatedText.firstChild.nodeValue = `Crutches: ${crutchesCount} `;
-        }
-    });
-}
-
-let supplyForm = document.getElementById('donate-supplies-form');
-
-if (supplyForm) {
-    supplyForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        if (!supplyForm.checkValidity()) {
-            alert("Please fill out all required fields.");
-            return;
-        }
-
-        let formData = {
-            name: supplyForm.name.value,
-            streetAddress: supplyForm.streetAddress.value,
-            wheelchairs: wheelchairCount,
-            showerChairs: showerChairCount,
-            crutches: crutchesCount,
-            city: supplyForm.city.value,
-            zip: supplyForm.zip.value,
-            phoneNumber: supplyForm.phoneNumber.value,
-            email: supplyForm.email.value
-        };
-
-        const submitBtn = document.getElementById('donation-request-submit-button');
-        const originalText = submitBtn.innerText;
-        submitBtn.innerText = "Sending...";
-
-        emailjs.send('service_oormfpl', 'template_ai1zyfs', formData)
-            .then(function() {
-                alert("Request Sent! We will contact you shortly.");
-                supplyForm.reset();
-                submitBtn.innerText = originalText;
-                document.querySelector('.donate-cards-container').classList.add('hidden');
-                document.querySelector('.donate-confirmation-card').classList.remove('hidden');
-            }, function(error) {
-                alert("Failed to send: " + error.text);
-                submitBtn.innerText = originalText;
-            });
-    });
-}
-
-
-// --- THE NEW 3D PHYSICS ENGINE WITH JITTER PROTECTION ---
-
-// We track the mouse globally. This means even if you scroll your page
-// without moving your mouse, the math still updates flawlessly in real-time.
-let globalMouseX = -1000;
-let globalMouseY = -1000;
-
-window.addEventListener('mousemove', e => {
-    globalMouseX = e.clientX;
-    globalMouseY = e.clientY;
 });
 
-// Physics Controls
-const maxRotate = 12;
-const stickiness = 0.04;
-const safeZoneBuffer = 60; // How far outside the card you can drift without losing the tilt
+let otherSelected = false;
+if (otherBtn) {
+    otherBtn.addEventListener('click', function(e) {
+        if (e.target === otherInput) return;
+        otherSelected = !otherSelected;
+        otherCheck.src = otherSelected ? "static/assets/check-box-blue.png" : "static/assets/check-box-grey.png";
+        if (otherSelected) otherInput.focus();
+        else otherInput.value = '';
+    });
+}
 
-// Only applying to the cards. The .navbar is intentionally excluded to keep it clean and stable.
-document.querySelectorAll('.about-card, .form, .donate-wheelchair-card, .donate-shower-chair-card, .donate-crutches-card, .donate-total-card, .get-supplies-selection-card, .get-supplies-form-card, .schedule-pickup-card, .donate-confirmation-card, .get-supplies-confirmation-card').forEach(card => {
+const getSuppliesForm = document.getElementById('get-supplies-form');
+if (getSuppliesForm) {
+    getSuppliesForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let items = Array.from(selectedSupplies);
+        if (otherSelected && otherInput.value.trim()) items.push(otherInput.value.trim());
 
-    let state = {
-        rotX: 0, rotY: 0,
-        tRotX: 0, tRotY: 0,
-        transX: 0, transY: 0,
-        tTransX: 0, tTransY: 0,
-        active: false
+        if (items.length === 0) return alert("Please select at least one item.");
+        if (!this.checkValidity()) return alert("Please fill out all required fields.");
+
+        const submitBtn = document.getElementById('get-submit-btn');
+        const originalText = submitBtn.innerText;
+        submitBtn.innerText = "Sending...";
+
+        const formData = {
+            name: this.name.value, streetAddress: this.streetAddress.value,
+            city: this.city.value, zip: this.zip.value,
+            phoneNumber: this.phoneNumber.value, email: this.email.value,
+            message: items.join(", ")
+        };
+
+        fetch('/api/request-supplies', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
+        }).then(res => {
+            if (res.ok) {
+                document.getElementById('get-supplies-ui').classList.add('hidden');
+                document.getElementById('get-supplies-success').classList.remove('hidden');
+            } else alert("Failed to send request.");
+        }).finally(() => submitBtn.innerText = originalText);
+    });
+}
+
+// ==========================================
+// 2. DONATION LOGIC (Dynamic State Manager)
+// ==========================================
+const donationState = {};
+
+document.querySelectorAll('.donate-logic-card').forEach(card => {
+    const itemName = card.dataset.item;
+    donationState[itemName] = { count: 0, active: false, label: card.dataset.label };
+
+    const btnAdd = card.querySelector('.btn-add-donate');
+    const btnInc = card.querySelector('.btn-qty-inc');
+    const btnDec = card.querySelector('.btn-qty-dec');
+    const qtyDisplay = card.querySelector('.qty-display');
+
+    const updateUI = () => {
+        qtyDisplay.textContent = donationState[itemName].count;
+        btnAdd.textContent = donationState[itemName].active ? "Added!" : `Donate ${donationState[itemName].label}`;
+        renderDonationCart();
     };
+
+    btnAdd.addEventListener('click', () => {
+        donationState[itemName].active = true;
+        if (donationState[itemName].count === 0) donationState[itemName].count = 1;
+        updateUI();
+    });
+
+    btnInc.addEventListener('click', () => {
+        if (donationState[itemName].active) {
+            donationState[itemName].count++;
+            updateUI();
+        }
+    });
+
+    btnDec.addEventListener('click', () => {
+        if (donationState[itemName].active && donationState[itemName].count > 1) {
+            donationState[itemName].count--;
+            updateUI();
+        }
+    });
+});
+
+const cartContainer = document.getElementById('donation-cart-items');
+function renderDonationCart() {
+    if (!cartContainer) return;
+    cartContainer.innerHTML = '';
+
+    Object.keys(donationState).forEach(key => {
+        const item = donationState[key];
+        if (item.active && item.count > 0) {
+            const div = document.createElement('div');
+            div.className = 'donated-item';
+            div.innerHTML = `
+                ${item.label}: ${item.count}
+                <button class="btn-remove" data-key="${key}">
+                    <img src="static/assets/trash-can-image.jpg" alt="Remove">
+                </button>
+            `;
+            cartContainer.appendChild(div);
+        }
+    });
+
+    document.querySelectorAll('.btn-remove').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const k = this.dataset.key;
+            donationState[k].active = false;
+            donationState[k].count = 0;
+            document.querySelector(`.donate-logic-card[data-item="${k}"] .qty-display`).textContent = '0';
+            document.querySelector(`.donate-logic-card[data-item="${k}"] .btn-add-donate`).textContent = `Donate ${donationState[k].label}`;
+            renderDonationCart();
+        });
+    });
+}
+
+const donateForm = document.getElementById('donate-supplies-form');
+if (donateForm) {
+    donateForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let hasItems = Object.values(donationState).some(i => i.active && i.count > 0);
+        if (!hasItems) return alert("Please add at least one item to donate.");
+        if (!this.checkValidity()) return alert("Please fill out all required fields.");
+
+        const submitBtn = document.getElementById('donate-submit-btn');
+        const originalText = submitBtn.innerText;
+        submitBtn.innerText = "Sending...";
+
+        let itemStrings = Object.values(donationState)
+            .filter(i => i.active && i.count > 0)
+            .map(i => `${i.label}: ${i.count}`)
+            .join('\n');
+
+        const formData = {
+            name: this.name.value, streetAddress: this.streetAddress.value,
+            city: this.city.value, zip: this.zip.value,
+            phoneNumber: this.phoneNumber.value, email: this.email.value,
+            items: itemStrings
+        };
+
+        fetch('/api/donate-supplies', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
+        }).then(res => {
+            if (res.ok) {
+                document.getElementById('donate-ui').classList.add('hidden');
+                document.getElementById('donate-success').classList.remove('hidden');
+            } else alert("Failed to send request.");
+        }).finally(() => submitBtn.innerText = originalText);
+    });
+}
+
+// ==========================================
+// 3. 3D PHYSICS ENGINE
+// ==========================================
+let globalMouseX = -1000, globalMouseY = -1000;
+window.addEventListener('mousemove', e => { globalMouseX = e.clientX; globalMouseY = e.clientY; });
+
+document.querySelectorAll('.glass-card').forEach(card => {
+    let state = { rotX: 0, rotY: 0, tRotX: 0, tRotY: 0, transX: 0, transY: 0, tTransX: 0, tTransY: 0, active: false };
 
     const render = () => {
-        // Because we calculate this every frame, scrolling naturally changes the target
         const rect = card.getBoundingClientRect();
+        const inSafeZone = (globalMouseX >= rect.left - 60 && globalMouseX <= rect.right + 60 && globalMouseY >= rect.top - 60 && globalMouseY <= rect.bottom + 60);
+        const inStrictZone = (globalMouseX >= rect.left && globalMouseX <= rect.right && globalMouseY >= rect.top && globalMouseY <= rect.bottom);
 
-        // Mathematical Safe Zone check (prevents jitter entirely)
-        const isInsideSafeZone = (
-            globalMouseX >= rect.left - safeZoneBuffer &&
-            globalMouseX <= rect.right + safeZoneBuffer &&
-            globalMouseY >= rect.top - safeZoneBuffer &&
-            globalMouseY <= rect.bottom + safeZoneBuffer
-        );
-
-        // Strict boundary to initially activate the hover
-        const isStrictlyInside = (
-            globalMouseX >= rect.left &&
-            globalMouseX <= rect.right &&
-            globalMouseY >= rect.top &&
-            globalMouseY <= rect.bottom
-        );
-
-        // Turn ON
-        if (!state.active && isStrictlyInside) {
-            state.active = true;
-            card.classList.add('is-active'); // JS triggers the CSS shadow, preventing native hover flickering
-        }
-        // Turn OFF
-        else if (state.active && !isInsideSafeZone) {
-            state.active = false;
-            card.classList.remove('is-active');
-
-            // Set targets perfectly back to center
-            state.tRotX = 0;
-            state.tRotY = 0;
-            state.tTransX = 0;
-            state.tTransY = 0;
-            card.style.setProperty('--mouse-x', `50%`);
-            card.style.setProperty('--mouse-y', `50%`);
+        if (!state.active && inStrictZone) {
+            state.active = true; card.classList.add('is-active');
+        } else if (state.active && !inSafeZone) {
+            state.active = false; card.classList.remove('is-active');
+            state.tRotX = state.tRotY = state.tTransX = state.tTransY = 0;
+            card.style.setProperty('--mouse-x', `50%`); card.style.setProperty('--mouse-y', `50%`);
         }
 
-        // Calculate dynamic targets if active
         if (state.active) {
-            const x = globalMouseX - rect.left;
-            const y = globalMouseY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const offsetX = x - centerX;
-            const offsetY = y - centerY;
-
-            state.tRotY = (offsetX / centerX) * maxRotate;
-            state.tRotX = -(offsetY / centerY) * maxRotate;
-
-            state.tTransX = offsetX * stickiness;
-            state.tTransY = offsetY * stickiness;
-
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
+            const cx = rect.width / 2, cy = rect.height / 2;
+            const ox = (globalMouseX - rect.left) - cx, oy = (globalMouseY - rect.top) - cy;
+            state.tRotY = (ox / cx) * 12; state.tRotX = -(oy / cy) * 12;
+            state.tTransX = ox * 0.04; state.tTransY = oy * 0.04;
+            card.style.setProperty('--mouse-x', `${globalMouseX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${globalMouseY - rect.top}px`);
         }
 
-        // Extremely slow, lazy easing curve (0.03 takes roughly ~1.5s to reach target)
         const ease = state.active ? 0.03 : 0.015;
-
-        state.rotX += (state.tRotX - state.rotX) * ease;
-        state.rotY += (state.tRotY - state.rotY) * ease;
-        state.transX += (state.tTransX - state.transX) * ease;
-        state.transY += (state.tTransY - state.transY) * ease;
-
-        // Apply pure 3D transform mathematically
+        state.rotX += (state.tRotX - state.rotX) * ease; state.rotY += (state.tRotY - state.rotY) * ease;
+        state.transX += (state.tTransX - state.transX) * ease; state.transY += (state.tTransY - state.transY) * ease;
         card.style.transform = `translateX(${state.transX}px) translateY(${state.transY}px) perspective(1000px) rotateX(${state.rotX}deg) rotateY(${state.rotY}deg)`;
-
-        // Loop infinitely
         requestAnimationFrame(render);
     };
-
-    // Kickstart the physics engine
     render();
 });

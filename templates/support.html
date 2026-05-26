@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Mission Medics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" class="logo-image-navbar">
+        <a href="/" class="nav-btn">About Us</a>
+        <a href="/get-supplies" class="nav-btn">Get Supplies</a>
+        <a href="/donate" class="nav-btn">Donate Supplies</a>
+        <a href="/support" class="nav-btn active">Support</a>
+    </nav>
+
+    <div class="main-container">
+        <section class="page-section">
+            <h1 class="section-heading">Support</h1>
+            <div class="glass-card">
+                <h1 class="card-heading">Coming Soon!</h1>
+                <p class="card-text">Financial donation options are currently being set up.</p>
+            </div>
+        </section>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

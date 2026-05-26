@@ -1,45 +1,25 @@
-/* =========================================
-   1. CORE PHYSICS & VARIABLES
-   ========================================= */
 :root {
     --glass-surface: rgba(255, 255, 255, 0.65);
     --glass-border: rgba(255, 255, 255, 0.5);
     --glass-highlight: rgba(255, 255, 255, 0.9);
-
     --primary-blue: #4A6C9B;
     --primary-accent: #6f8ec3;
     --deep-blue: #1E3057;
-
     --spring-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --smooth-flow: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-html {
-    overflow-y: scroll;
-}
-
-::selection {
-    background: var(--primary-blue);
-    color: white;
-}
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
     -webkit-font-smoothing: antialiased;
 }
 
-/* =========================================
-   2. CINEMATIC AURORA BACKGROUND
-   ========================================= */
 body {
     background-color: #f0f4f8;
-    background-image:
-        radial-gradient(at 0% 0%, hsla(210,80%,85%,1) 0, transparent 50%),
-        radial-gradient(at 100% 0%, hsla(230,80%,90%,1) 0, transparent 50%),
-        radial-gradient(at 50% 100%, hsla(200,80%,92%,1) 0, transparent 60%);
+    background-image: radial-gradient(at 0% 0%, hsla(210,80%,85%,1) 0, transparent 50%),
+                      radial-gradient(at 100% 0%, hsla(230,80%,90%,1) 0, transparent 50%),
+                      radial-gradient(at 50% 100%, hsla(200,80%,92%,1) 0, transparent 60%);
     background-size: 180% 180%;
     min-height: 100vh;
     animation: auroraDrift 15s ease-in-out infinite alternate;
@@ -52,753 +32,138 @@ body {
     100% { background-position: 50% 100%; }
 }
 
-/* =========================================
-   3. MASTER LAYOUT SYSTEM
-   ========================================= */
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }
 
 .main-container {
-    padding-top: 140px;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 100px;
-    perspective: 1500px;
+    padding-top: 140px; width: 100%; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    padding-bottom: 100px; perspective: 1500px;
 }
 
-#section-about,
-#section-get-supplies,
-#section-donate,
-#section-support {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.get-supplies-cards-container,
-.donate-cards-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.donate-cards-container {
-    gap: 50px;
+.page-section, .cards-container {
+    display: flex; flex-direction: column; align-items: center; width: 100%; gap: 40px;
 }
 
 /* =========================================
-   4. THE "DIAMOND" GLASS SYSTEM
+   UTILITY: GLASS CARDS
    ========================================= */
-.navbar, .about-card, .form, .donate-wheelchair-card,
-.donate-shower-chair-card, .donate-crutches-card,
-.donate-total-card, .get-supplies-selection-card, .get-supplies-form-card,
-.schedule-pickup-card, .donate-confirmation-card, .get-supplies-confirmation-card {
+.glass-card, .navbar {
     background: var(--glass-surface);
     backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-
     border: 1px solid var(--glass-border);
     border-top: 1px solid var(--glass-highlight);
     border-radius: 40px;
 }
 
-/* --- Default state of the 3D cards --- */
-.about-card, .form, .donate-wheelchair-card,
-.donate-shower-chair-card, .donate-crutches-card, .donate-total-card,
-.get-supplies-selection-card, .get-supplies-form-card, .schedule-pickup-card,
-.donate-confirmation-card, .get-supplies-confirmation-card {
-    position: relative;
-    top: 0;
-    overflow: hidden;
-
-    /* Perfectly structured base shadow to guarantee a smooth fade
-      Matches the 3-layer structure of the active state exactly.
-    */
-    box-shadow:
-        inset 2px 2px 4px rgba(255, 255, 255, 0.5),
-        inset 0px 20px 40px rgba(31, 38, 135, 0),
-        0 20px 40px -10px rgba(31, 38, 135, 0.1);
-
-    /* Smooth 0.8s transition to match the slow drift of the JS PID loop */
+.glass-card {
+    width: 90%; max-width: 900px; padding: 60px;
+    text-align: center; position: relative; overflow: hidden;
+    box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.5), inset 0px 20px 40px rgba(31, 38, 135, 0), 0 20px 40px -10px rgba(31, 38, 135, 0.1);
     transition: box-shadow 0.8s ease, border-color 0.8s ease;
+    opacity: 0; animation: revealCard 0.4s var(--spring-bounce) forwards 0.1s;
 }
 
-/* The Highlight Overlay */
-.about-card::before, .form::before, .donate-wheelchair-card::before,
-.donate-shower-chair-card::before, .donate-crutches-card::before,
-.donate-total-card::before, .get-supplies-selection-card::before,
-.get-supplies-form-card::before, .schedule-pickup-card::before,
-.donate-confirmation-card::before, .get-supplies-confirmation-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    /* Diffused and expanded to 1000px with soft 0.25 opacity */
-    background: radial-gradient(
-        1000px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(255, 255, 255, 0.25) 0%,
-        rgba(74, 108, 155, 0.02) 40%,
-        transparent 80%
-    );
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    z-index: 1;
-    pointer-events: none;
+.glass-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(1000px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.25) 0%, rgba(74, 108, 155, 0.02) 40%, transparent 80%);
+    opacity: 0; transition: opacity 0.8s ease; z-index: 1; pointer-events: none;
 }
 
-/* --- JITTER-FREE ACTIVE STATE --- */
-/* We trigger this via a JS class (.is-active) rather than native :hover to bypass jitter */
-.about-card.is-active, .form.is-active, .donate-wheelchair-card.is-active,
-.donate-shower-chair-card.is-active, .donate-crutches-card.is-active,
-.donate-total-card.is-active, .get-supplies-selection-card.is-active,
-.get-supplies-form-card.is-active, .schedule-pickup-card.is-active,
-.donate-confirmation-card.is-active, .get-supplies-confirmation-card.is-active {
-    box-shadow:
-        inset 2px 2px 4px rgba(255, 255, 255, 0.8),
-        inset 0px 20px 40px rgba(31, 38, 135, 0.05),
-        0 20px 40px -10px rgba(31, 38, 135, 0.25);
+.glass-card.is-active {
+    box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.8), inset 0px 20px 40px rgba(31, 38, 135, 0.05), 0 20px 40px -10px rgba(31, 38, 135, 0.25);
     border-color: rgba(255, 255, 255, 0.8);
 }
+.glass-card.is-active::before { opacity: 1; }
 
-.about-card.is-active::before, .form.is-active::before, .donate-wheelchair-card.is-active::before,
-.donate-shower-chair-card.is-active::before, .donate-crutches-card.is-active::before,
-.donate-total-card.is-active::before, .get-supplies-selection-card.is-active::before,
-.get-supplies-form-card.is-active::before, .schedule-pickup-card.is-active::before,
-.donate-confirmation-card.is-active::before, .get-supplies-confirmation-card.is-active::before {
-    opacity: 1;
+@keyframes revealCard {
+    from { opacity: 0; top: 15px; filter: blur(4px); }
+    to { opacity: 1; top: 0; filter: blur(0); }
 }
 
 /* =========================================
-   5. FLOATING NAVBAR
+   NAVBAR
    ========================================= */
 .navbar {
-    width: auto;
-    min-width: 550px;
-    height: 70px;
-    position: fixed;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    /* Standard base shadow matching its active hover */
-    box-shadow:
-        0 20px 40px -10px rgba(31, 38, 135, 0.1),
-        0 1px 2px rgba(255, 255, 255, 0.5) inset;
-
-    transition: box-shadow 0.4s ease;
-    z-index: 5000;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 6px;
-    border-radius: 100px;
-
+    min-width: 550px; height: 70px; position: fixed; top: 30px; left: 50%;
+    transform: translateX(-50%); box-shadow: 0 20px 40px -10px rgba(31, 38, 135, 0.1), 0 1px 2px rgba(255, 255, 255, 0.5) inset;
+    transition: box-shadow 0.4s ease; z-index: 5000;
+    display: flex; justify-content: center; align-items: center; gap: 8px; padding: 6px; border-radius: 100px;
     animation: navDrop 0.5s var(--spring-bounce) forwards;
 }
 
-.navbar:hover {
-    box-shadow:
-        0 10px 25px rgba(31, 38, 135, 0.08),
-        0 1px 2px rgba(255, 255, 255, 0.5) inset;
-}
-
-@keyframes navDrop {
-    from { top: 10px; opacity: 0; }
-    to { top: 30px; opacity: 1; }
-}
+.navbar:hover { box-shadow: 0 10px 25px rgba(31, 38, 135, 0.08), 0 1px 2px rgba(255, 255, 255, 0.5) inset; }
+@keyframes navDrop { from { top: 10px; opacity: 0; } to { top: 30px; opacity: 1; } }
 
 .nav-btn {
-    background: transparent;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--deep-blue);
-    cursor: pointer;
-    transition: all 0.15s var(--smooth-flow);
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
+    padding: 12px 24px; border-radius: 50px; font-size: 15px; font-weight: 600; color: var(--deep-blue);
+    text-decoration: none; transition: all 0.15s var(--smooth-flow);
 }
-
-.nav-btn:hover, .nav-btn.active {
-    background: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    color: var(--primary-blue);
-}
-
- .navbar-container {
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     gap: 20px;
-     position: fixed;
-     top: 30px;
-     left: 50%;
-     transform: translateX(-50%);
-     z-index: 5001;
- }
-
-.logo-image-navbar {
-    width: 90px;
-    display: block;
-}
+.nav-btn:hover, .nav-btn.active { background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: var(--primary-blue); }
+.logo-image-navbar { width: 90px; margin-right: 15px; }
 
 /* =========================================
-   6. CARD & FORM GEOMETRY
-   ========================================= */
-.about-card, .form, .donate-wheelchair-card,
-.donate-shower-chair-card, .donate-crutches-card, .donate-total-card,
-.get-supplies-selection-card, .get-supplies-form-card, .schedule-pickup-card,
-.donate-confirmation-card, .get-supplies-confirmation-card {
-    width: 90%;
-    max-width: 900px;
-    padding: 60px;
-    text-align: center;
-    margin-bottom: 40px;
-    position: relative;
-
-    opacity: 0;
-    animation: revealCard 0.4s var(--spring-bounce) forwards 0.1s;
-}
-
-@keyframes revealCard {
-    from {
-        opacity: 0;
-        top: 15px;
-        filter: blur(4px);
-    }
-    to {
-        opacity: 1;
-        top: 0;
-        filter: blur(0);
-    }
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    text-align: left;
-}
-
-.form.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px 24px;
-    align-items: start;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.form.form-grid .form-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-#donate-supplies-schedule-pickup-heading,
-#get-supplies-schedule-pickup-heading {
-    grid-column: 1 / -1;
-    text-align: center;
-}
-
-.form.form-grid .form-row label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--deep-blue);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-}
-
-.form.form-grid .form-row .input {
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.06);
-    background: rgba(255,255,255,0.9);
-    font-size: 16px;
-    width: 100%;
-}
-
- .other-button-container {
-     display: flex;
-     align-items: center;
-     flex: 1;
-     gap: 12px;
-
-     /*padding-left: 5%;*/
- }
-
-#other-input {
-    padding: 14px 16px;
-    border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.1);
-    background: rgba(255,255,255,0.8);
-    font-size: 16px;
-    flex: 1;
-    height: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
-}
-
-.form.form-grid .form-actions {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: center;
-    margin-top: 6px;
-}
-
-.form.form-grid .submit-btn {
-    padding: 12px 36px;
-    font-size: 18px;
-    border-radius: 12px;
-}
-
-@media (max-width: 760px) {
-    .form.form-grid { grid-template-columns: 1fr; }
-    .donate-wheelchair-card, .donate-shower-chair-card, .donate-crutches-card,
-    .about-card, .get-supplies-selection-card, .get-supplies-form-card,
-    .donate-total-card, .schedule-pickup-card { padding: 30px; }
-}
-
-/* =========================================
-   7. TYPOGRAPHY (Polished & Animated)
+   TYPOGRAPHY
    ========================================= */
 .section-heading {
-    font-size: 72px;
-    font-weight: 800;
-    letter-spacing: -2px;
-    line-height: 1.1;
-
+    font-size: 72px; font-weight: 800; letter-spacing: -2px; line-height: 1.1;
     background: linear-gradient(135deg, #1E3057 20%, #4A6C9B 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    text-align: center;
-    margin-bottom: 50px;
-
-    opacity: 0;
-    animation: revealText 0.4s var(--smooth-flow) forwards 0.1s;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 50px;
+    opacity: 0; animation: revealText 0.4s var(--smooth-flow) forwards 0.1s;
 }
 
-@keyframes revealText {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.get-supplies-heading, .get-supplies-confirmation-heading {
-    font-size: 36px;
-    color: var(--deep-blue);
-    margin-bottom: 30px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    text-align: center;
-    opacity: 0;
-    animation: revealText 0.4s var(--smooth-flow) forwards 0.15s;
-}
-
-.about-text, .donate-wheelchair-text,
-.donate-shower-chair-text, .donate-crutches-text, .support-text,
-.donate-confirmation-text, .get-supplies-confirmation-text,
-.get-supplies-text, .supplies-needed-text {
-    font-size: 21px;
-    color: #4a5a6a;
-    line-height: 1.6;
-    font-weight: 400;
-    max-width: 80ch;
-    margin: 0 auto 30px auto;
-    opacity: 0;
-    animation: revealText 0.4s var(--smooth-flow) forwards 0.2s;
-}
-
-.support-text {
-    text-align: center;
-    font-weight: 500;
-}
-
-.donate-heading, .donate-total-heading, .donate-confirmation-heading {
-    font-size: 36px;
-    color: var(--deep-blue);
-    margin-bottom: 15px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    opacity: 0;
-    animation: revealText 0.4s var(--smooth-flow) forwards 0.2s;
-}
+.card-heading { font-size: 36px; color: var(--deep-blue); margin-bottom: 15px; font-weight: 800; opacity: 0; animation: revealText 0.4s forwards 0.15s; }
+.card-text { font-size: 21px; color: #4a5a6a; line-height: 1.6; max-width: 80ch; margin: 0 auto 30px auto; opacity: 0; animation: revealText 0.4s forwards 0.2s; }
+@keyframes revealText { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* =========================================
-   8. INTERACTIVE INPUTS
+   FORMS & INPUTS
    ========================================= */
-.form-label {
-    font-size: 16px;
-    color: var(--deep-blue);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-left: 15px;
-    margin-bottom: -10px;
-    opacity: 0.7;
-}
-
-.input {
-    border: 2px solid transparent;
-    border-radius: 25px;
-    padding: 20px 25px;
-    background: rgba(255, 255, 255, 0.5);
-    font-size: 18px;
-    color: var(--deep-blue);
-    outline: none;
-    transition: all 0.2s ease;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-}
-
-.input:focus {
-    background: #fff;
-    border-color: var(--primary-blue);
-    transform: scale(1.02);
-    box-shadow: 0 15px 30px rgba(74, 108, 155, 0.15);
-}
-
-.small { height: 65px; }
-.big { height: 180px; resize: none; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; text-align: left; }
+.form-row { display: flex; flex-direction: column; width: 100%; }
+.full-width { grid-column: 1 / -1; text-align: center; }
+.form-row label { font-size: 14px; font-weight: 700; color: var(--deep-blue); margin-bottom: 8px; text-transform: uppercase; }
+.input { padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); background: rgba(255,255,255,0.9); font-size: 16px; width: 100%; outline: none; transition: 0.2s ease; }
+.input:focus { border-color: var(--primary-blue); transform: scale(1.02); box-shadow: 0 15px 30px rgba(74, 108, 155, 0.15); }
 
 /* =========================================
-   9. "PULSE" ACTION BUTTONS
+   BUTTONS (Primary & Selection)
    ========================================= */
-.submit-btn, .donate-wheelchair-button,
-.donate-shower-chair-button, .donate-crutches-button,
-.donate-total-button {
-    background: linear-gradient(135deg, #4A6C9B, #7aa3d9);
-    color: white;
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    padding: 18px 50px;
-    border-radius: 100px;
-    border: 1px solid rgba(255,255,255,0.2);
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(74, 108, 155, 0.3);
-    transition: all 0.3s var(--spring-bounce);
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+.btn-primary {
+    background: linear-gradient(135deg, #4A6C9B, #7aa3d9); color: white; font-size: 19px; font-weight: 700;
+    padding: 18px 50px; border-radius: 100px; border: none; cursor: pointer;
+    box-shadow: 0 10px 20px rgba(74, 108, 155, 0.3); transition: all 0.3s var(--spring-bounce); margin-top: 20px;
 }
+.btn-primary:hover { transform: translateY(-5px) scale(1.05); background: linear-gradient(135deg, #5678a9, #8bb1e3); animation: softPulse 2s infinite; }
+.btn-primary:active { transform: scale(0.95); }
+@keyframes softPulse { 0% { box-shadow: 0 0 0 0 rgba(74, 108, 155, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(74, 108, 155, 0); } 100% { box-shadow: 0 0 0 0 transparent; } }
 
-@keyframes softPulse {
-    0% { box-shadow: 0 0 0 0 rgba(74, 108, 155, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(74, 108, 155, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(74, 108, 155, 0); }
+.btn-select {
+    background: white; border: 2px solid transparent; border-radius: 20px; padding: 18px 25px;
+    font-size: 18px; font-weight: 600; color: var(--deep-blue); width: 100%; display: flex;
+    justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s var(--spring-bounce);
 }
-
-.submit-btn:hover, .donate-wheelchair-button:hover,
-.donate-shower-chair-button:hover, .donate-crutches-button:hover,
-.donate-total-button:hover {
-    transform: translateY(-5px) scale(1.05);
-    background: linear-gradient(135deg, #5678a9, #8bb1e3);
-    box-shadow: 0 20px 40px rgba(74, 108, 155, 0.4);
-    animation: softPulse 2s infinite;
-}
-
-.submit-btn:active, .donate-wheelchair-button:active,
-.donate-shower-chair-button:active, .donate-crutches-button:active,
-.donate-total-button:active {
-    transform: scale(0.95);
-    animation: none;
-}
+.btn-select:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(74, 108, 155, 0.15); }
+.check-icon { width: 24px; opacity: 0.8; }
+.btn-select.other-btn .input { flex: 1; height: auto; padding: 10px; margin: 0 15px; border-radius: 8px; font-size: 14px;}
 
 /* =========================================
-   10. DONATION LIST ITEMS (Clean Capsules)
+   DONATION CONTROLS
    ========================================= */
-.wheelchair-donated-text,
-.shower-chair-donated-text,
-.crutches-donated-text {
-    background: #fff;
-    padding: 18px 30px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    border: 1px solid rgba(0,0,0,0.03);
-    font-weight: 500;
-    color: var(--deep-blue);
-    animation: popInItem 0.3s var(--spring-bounce) forwards;
-}
+.qty-wrapper { position: absolute; bottom: 30px; right: 30px; display: flex; align-items: center; gap: 5px; background: rgba(255, 255, 255, 0.4); padding: 5px 10px; border-radius: 50px; }
+.btn-qty { background: #e5f6ff; border: 1px solid rgba(255,255,255,0.8); border-radius: 50%; width: 44px; height: 44px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s var(--spring-bounce); }
+.btn-qty:hover { transform: scale(1.1); }
+.btn-qty img { width: 20px; opacity: 0.7; }
+.qty-display { font-size: 24px; font-weight: 800; color: var(--deep-blue); min-width: 30px; margin: 0 5px; }
 
-@keyframes popInItem {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
-}
+.donated-item { background: #fff; padding: 18px 30px; border-radius: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; font-weight: 500; color: var(--deep-blue); }
+.btn-remove { background: #fff5f5; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; }
+.btn-remove:hover { background: #ffcccc; transform: rotate(90deg) scale(1.1); }
+.btn-remove img { width: 16px; opacity: 0.6; }
 
-.remove-wheelchair-button,
-.remove-shower-chair-button,
-.remove-crutches-button {
-    background: #fff5f5;
-    border: none;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s var(--spring-bounce);
-}
-
-.remove-wheelchair-button:hover,
-.remove-shower-chair-button:hover,
-.remove-crutches-button:hover {
-    background: #ffcccc;
-    transform: rotate(90deg) scale(1.1);
-}
-
-.trash-can-image { width: 16px; opacity: 0.6; }
-
-/* =========================================
-   11. SHATTER EXIT
-   ========================================= */
-.fading-out {
-    animation: smoothExit 0.3s cubic-bezier(0.4, 0.0, 0.2, 1) forwards !important;
-    pointer-events: none;
-}
-
-@keyframes smoothExit {
-    from { opacity: 1; top: 0; filter: blur(0); }
-    to { opacity: 0; top: -10px; filter: blur(12px); }
-}
-
-/* =========================================
-   12. QUANTITY CONTROLS (CORNER LAYOUT)
-   ========================================= */
-.quantity-wrapper {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(255, 255, 255, 0.4);
-    padding: 5px 10px;
-    border-radius: 50px;
-}
-
+/* LAYOUT GRIDS */
+.supplies-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; margin-top: 15px; }
 @media (max-width: 760px) {
-    .quantity-wrapper {
-        position: relative;
-        bottom: auto;
-        right: auto;
-        justify-content: center;
-        margin-top: 20px;
-    }
-}
-
-.donate-wheelchair-increase-button,
-.donate-wheelchair-decrease-button,
-.donate-shower-chair-increase-button,
-.donate-shower-chair-decrease-button,
-.donate-crutches-increase-button,
-.donate-crutches-decrease-button {
-    background: #e5f6ff;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
-    transition: all 0.2s var(--spring-bounce);
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.donate-wheelchair-increase-button:hover,
-.donate-wheelchair-decrease-button:hover,
-.donate-shower-chair-increase-button:hover,
-.donate-shower-chair-decrease-button:hover,
-.donate-crutches-increase-button:hover,
-.donate-crutches-decrease-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.donate-wheelchair-increase-button:active,
-.donate-wheelchair-decrease-button:active,
-.donate-shower-chair-increase-button:active,
-.donate-shower-chair-decrease-button:active,
-.donate-crutches-increase-button:active,
-.donate-crutches-decrease-button:active {
-    transform: scale(0.95);
-}
-
-.up-arrow-image, .down-arrow-image {
-    width: 20px;
-    height: 20px;
-    opacity: 0.7;
-}
-
-.donate-quantity {
-    display: inline-block;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--deep-blue);
-    min-width: 30px;
-    margin: 0 5px;
-}
-
-/* =========================================
-   13. GET SUPPLIES SELECTION (VERTICAL FULL WIDTH)
-   ========================================= */
-.get-supplies-button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    margin: 30px 0 10px 0;
-}
-
-.specific-supplies-button-container {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    width: 100%;
-    /*margin: 30px 0 10px 0;*/
-}
-
-.specific-supplies-column {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    /*margin: 30px 0 10px 0;*/
-}
-
-.other-button
-{
-    background: white;
-    border: 2px solid transparent;
-    border-radius: 20px;
-    padding: 18px 25px;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--deep-blue);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: all 0.2s var(--spring-bounce);
-}
-
-.get-wheelchairs-button,
-.get-power-chairs-button,
-.get-scooters-button,
-.get-walkers-with-wheels-button,
-.get-rollators-button,
-.get-hospital-beds-button,
-.get-hoyer-lifts-button,
-.get-trapezes-button,
-.get-shower-chairs-button,
-.get-tub-transfer-benches-button,
-.get-commodes-button,
-.get-raised-toilet-seats-button,
-.get-grab-bars-button,
-.get-canes-button,
-.get-crutches-button,
-.get-transfer-boards-button,
-.get-bed-rails-button,
-.get-overbed-tables-button {
-    background: white;
-    border: 2px solid transparent;
-    border-radius: 20px;
-    padding: 18px 25px;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--deep-blue);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: all 0.2s var(--spring-bounce);
-}
-
-.get-wheelchairs-button:hover,
-.get-power-chairs-button:hover,
-.get-scooters-button:hover,
-.get-walkers-with-wheels-button:hover,
-.get-rollators-button:hover,
-.get-hospital-beds-button:hover,
-.get-hoyer-lifts-button:hover,
-.get-trapezes-button:hover,
-.get-shower-chairs-button:hover,
-.get-tub-transfer-benches-button:hover,
-.get-commodes-button:hover,
-.get-raised-toilet-seats-button:hover,
-.get-grab-bars-button:hover,
-.get-canes-button:hover,
-.get-crutches-button:hover,
-.get-transfer-boards-button:hover,
-.get-bed-rails-button:hover,
-.get-overbed-tables-button:hover,
-.other-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(74, 108, 155, 0.15);
-    border-color: rgba(74, 108, 155, 0.2);
-}
-
-.get-wheelchairs-button:active,
-.get-power-chairs-button:active,
-.get-scooters-button:active,
-.get-walkers-with-wheels-button:active,
-.get-rollators-button:active,
-.get-hospital-beds-button:active,
-.get-hoyer-lifts-button:active,
-.get-trapezes-button:active,
-.get-shower-chairs-button:active,
-.get-tub-transfer-benches-button:active,
-.get-commodes-button:active,
-.get-raised-toilet-seats-button:active,
-.get-grab-bars-button:active,
-.get-canes-button:active,
-.get-crutches-button:active,
-.get-transfer-boards-button:active,
-.get-bed-rails-button:active,
-.get-overbed-tables-button:active,
-.other-button:active {
-    transform: scale(0.98);
-}
-
-.check-box-image {
-    width: 24px;
-    height: 24px;
-    opacity: 0.8;
-}
-
-.supplies-needed-text {
-    font-weight: 700;
-    color: var(--deep-blue);
-    margin-bottom: 0px;
-    text-align: left;
-    margin-left: 5px;
+    .form-grid, .supplies-grid { grid-template-columns: 1fr; }
+    .glass-card { padding: 30px; }
+    .qty-wrapper { position: relative; bottom: auto; right: auto; justify-content: center; margin-top: 20px; }
 }
