@@ -22,35 +22,50 @@
             <p class="card-text">If you are in need of medical supplies, please fill out the form below:</p>
 
             <div class="glass-card">
-                <h2 class="card-heading">Select Supplies</h2>
-                <div class="supplies-grid">
-                    <button class="btn-select">Wheelchairs <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Power Chairs <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Scooters <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Walkers <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Rollators <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Hospital Beds <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Hoyer Lifts <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Trapezes <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Shower Chairs <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Tub Transfer Benches <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Commodes <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Raised Toilet Seats <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Grab Bars <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Canes <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Crutches <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Transfer Boards <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Bed Rails <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                    <button class="btn-select">Overbed Tables <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
-                </div>
+              <h2 class="card-heading">Select Supplies</h2>
 
-                <div style="margin-top: 15px;">
-                    <button class="btn-select other-btn">
-                        Other: <input type="text" id="other-input" class="input">
-                        <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" id="other-check-box-image" class="check-icon">
-                    </button>
-                </div>
-            </div>
+              <input type="text" id="supply-search" class="input search-input" placeholder="Search for supplies...">
+
+              <div id="supplies-container">
+                  <h3 class="category-heading">Mobility</h3>
+                  <div class="supplies-grid">
+                      <button class="btn-select">Wheelchairs <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Power Chairs <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Scooters <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Walkers <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Rollators <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Canes <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Crutches <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                  </div>
+
+                  <h3 class="category-heading">Bathroom Safety</h3>
+                  <div class="supplies-grid">
+                      <button class="btn-select">Shower Chairs <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Tub Transfer Benches <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Commodes <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Raised Toilet Seats <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Grab Bars <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                  </div>
+
+                  <h3 class="category-heading">Bedroom & Transfers</h3>
+                  <div class="supplies-grid">
+                      <button class="btn-select">Hospital Beds <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Hoyer Lifts <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Trapezes <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Transfer Boards <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Bed Rails <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                      <button class="btn-select">Overbed Tables <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" class="check-icon"></button>
+                  </div>
+              </div>
+
+              <div style="margin-top: 25px;">
+                  <div class="btn-select other-container" id="other-wrapper">
+                      <span class="other-label">Other:</span>
+                      <input type="text" id="other-input" class="input" placeholder="Type specific supply here...">
+                      <img src="{{ url_for('static', filename='assets/check-box-grey.png') }}" id="other-check-box-image" class="check-icon">
+                  </div>
+              </div>
+          </div>
 
             <div class="glass-card">
                 <form class="form-grid" id="get-supplies-form" novalidate>

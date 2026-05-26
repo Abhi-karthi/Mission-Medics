@@ -19,41 +19,106 @@
         <h1 class="section-heading">Donate Supplies</h1>
 
         <div id="donate-ui" class="cards-container">
-            <div class="glass-card donate-logic-card" data-item="wheelchair" data-label="Wheelchair">
-                <h1 class="card-heading">Wheelchair</h1>
-                <p class="card-text">Donating a wheelchair fundamentally restores a person's independence and dignity.</p>
-                <button class="btn-primary btn-add-donate">Donate Wheelchair</button>
-                <div class="qty-wrapper">
-                    <button class="btn-qty btn-qty-inc"><img src="{{ url_for('static', filename='assets/up-arrow.jpg') }}"></button>
-                    <p class="qty-display">0</p>
-                    <button class="btn-qty btn-qty-dec"><img src="{{ url_for('static', filename='assets/down-arrow.jpg') }}"></button>
-                </div>
-            </div>
-
-            <div class="glass-card donate-logic-card" data-item="showerChair" data-label="Shower Chair">
-                <h1 class="card-heading">Shower Chair</h1>
-                <p class="card-text">Donating a shower chair significantly enhances safety and independence.</p>
-                <button class="btn-primary btn-add-donate">Donate Shower Chair</button>
-                <div class="qty-wrapper">
-                    <button class="btn-qty btn-qty-inc"><img src="{{ url_for('static', filename='assets/up-arrow.jpg') }}"></button>
-                    <p class="qty-display">0</p>
-                    <button class="btn-qty btn-qty-dec"><img src="{{ url_for('static', filename='assets/down-arrow.jpg') }}"></button>
-                </div>
-            </div>
-
-            <div class="glass-card donate-logic-card" data-item="crutches" data-label="Crutches">
-                <h1 class="card-heading">Crutches</h1>
-                <p class="card-text">Donating crutches provides essential mobility support for recovery.</p>
-                <button class="btn-primary btn-add-donate">Donate Crutches</button>
-                <div class="qty-wrapper">
-                    <button class="btn-qty btn-qty-inc"><img src="{{ url_for('static', filename='assets/up-arrow.jpg') }}"></button>
-                    <p class="qty-display">0</p>
-                    <button class="btn-qty btn-qty-dec"><img src="{{ url_for('static', filename='assets/down-arrow.jpg') }}"></button>
-                </div>
-            </div>
 
             <div class="glass-card">
-                <h1 class="card-heading">Total Donation</h1>
+                <h2 class="card-heading">Select Items to Donate</h2>
+                <p class="card-text" style="font-size: 16px; margin-bottom: 20px;">Use the plus and minus buttons to add items to your donation cart.</p>
+
+                <h3 class="category-heading">Mobility</h3>
+                <div class="donate-grid">
+                    <div class="donate-item" data-item="wheelchairs" data-label="Wheelchairs">
+                        <span class="item-name">Wheelchairs</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="powerChairs" data-label="Power Chairs">
+                        <span class="item-name">Power Chairs</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="scooters" data-label="Scooters">
+                        <span class="item-name">Scooters</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="walkers" data-label="Walkers">
+                        <span class="item-name">Walkers</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="rollators" data-label="Rollators">
+                        <span class="item-name">Rollators</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="canes" data-label="Canes">
+                        <span class="item-name">Canes</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="crutches" data-label="Crutches">
+                        <span class="item-name">Crutches</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                </div>
+
+                <h3 class="category-heading">Bathroom Safety</h3>
+                <div class="donate-grid">
+                    <div class="donate-item" data-item="showerChairs" data-label="Shower Chairs">
+                        <span class="item-name">Shower Chairs</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="tubBenches" data-label="Tub Transfer Benches">
+                        <span class="item-name">Tub Transfer Benches</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="commodes" data-label="Commodes">
+                        <span class="item-name">Commodes</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="raisedToilets" data-label="Raised Toilet Seats">
+                        <span class="item-name">Raised Toilet Seats</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="grabBars" data-label="Grab Bars">
+                        <span class="item-name">Grab Bars</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                </div>
+
+                <h3 class="category-heading">Bedroom & Transfers</h3>
+                <div class="donate-grid">
+                    <div class="donate-item" data-item="hospitalBeds" data-label="Hospital Beds">
+                        <span class="item-name">Hospital Beds</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="hoyerLifts" data-label="Hoyer Lifts">
+                        <span class="item-name">Hoyer Lifts</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="trapezes" data-label="Trapezes">
+                        <span class="item-name">Trapezes</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="transferBoards" data-label="Transfer Boards">
+                        <span class="item-name">Transfer Boards</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="bedRails" data-label="Bed Rails">
+                        <span class="item-name">Bed Rails</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                    <div class="donate-item" data-item="overbedTables" data-label="Overbed Tables">
+                        <span class="item-name">Overbed Tables</span>
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <div class="donate-item other-donate-item" data-item="other" data-label="Other">
+                        <span class="item-name" style="margin-right: 15px; font-weight: 600;">Other:</span>
+                        <input type="text" id="other-donate-input" class="input compact-input" placeholder="Type specific item...">
+                        <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" id="cart-summary-card" style="display: none;">
+                <h1 class="card-heading">Your Donation Cart</h1>
                 <div id="donation-cart-items">
                     </div>
             </div>
