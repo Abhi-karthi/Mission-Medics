@@ -10,8 +10,8 @@
     <nav class="navbar">
         <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" class="logo-image-navbar">
         <a href="/" class="nav-btn">About Us</a>
-        <a href="/get-supplies" class="nav-btn">Get Supplies</a>
         <a href="/donate" class="nav-btn active">Donate Supplies</a>
+        <a href="/get-supplies" class="nav-btn">Get Supplies</a>
         <a href="/support" class="nav-btn">Support</a>
     </nav>
 
@@ -107,6 +107,7 @@
                         <div class="compact-qty"><button type="button" class="btn-minus">-</button><span class="qty-display">0</span><button type="button" class="btn-plus">+</button></div>
                     </div>
                 </div>
+                <h3 class="category-heading"></h3>
 
                 <div style="margin-top: 25px;">
                     <div class="donate-item other-donate-item" data-item="other" data-label="Other">
