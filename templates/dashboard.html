@@ -31,15 +31,17 @@
             <div class="db-list">
                 {% for req in donation_requests %}
                 <details class="db-dropdown">
-                    <summary class="db-summary" style="display: flex; justify-content: space-between; align-items: center; padding-right: 45px;">
+                    <summary class="db-summary" style="display: flex; justify-content: space-between; align-items: center; padding-right: 15px;">
                         <div>
                             <strong>{{ req['name'] }}</strong>
                             <span style="color: gray; font-size: 14px; margin-left: 10px;">- {{ req['city'] }}, {{ req['zip'] }}</span>
                         </div>
-                        <button class="btn-remove" style="position: relative; z-index: 10;"
-                                onclick="event.stopPropagation(); confirmDelete('donations', '{{ req['_id'] | string }}');">
-                            <img src="{{ url_for('static', filename='assets/trash-can-image.jpg') }}" alt="Delete" style="width: 16px; opacity: 0.8;">
-                        </button>
+
+                        <div style="margin-right: 35px; position: relative; z-index: 10;">
+                            <button class="btn-remove" onclick="event.stopPropagation(); confirmDelete('donations', '{{ req['_id'] | string }}');">
+                                <img src="{{ url_for('static', filename='assets/trash-can-image.jpg') }}" alt="Delete">
+                            </button>
+                        </div>
                     </summary>
                     <div class="db-details">
                         <p><strong>Email:</strong> <a href="mailto:{{ req['email'] }}">{{ req['email'] }}</a></p>
@@ -64,15 +66,17 @@
             <div class="db-list">
                 {% for req in supply_requests %}
                 <details class="db-dropdown">
-                    <summary class="db-summary" style="display: flex; justify-content: space-between; align-items: center; padding-right: 45px;">
+                    <summary class="db-summary" style="display: flex; justify-content: space-between; align-items: center; padding-right: 15px;">
                         <div>
                             <strong>{{ req['name'] }}</strong>
                             <span style="color: gray; font-size: 14px; margin-left: 10px;">- {{ req['city'] }}, {{ req['zip'] }}</span>
                         </div>
-                        <button class="btn-remove" style="position: relative; z-index: 10;"
-                                onclick="event.stopPropagation(); confirmDelete('requests', '{{ req['_id'] | string }}');">
-                            <img src="{{ url_for('static', filename='assets/trash-can-image.jpg') }}" alt="Delete" style="width: 16px; opacity: 0.8;">
-                        </button>
+
+                        <div style="margin-right: 35px; position: relative; z-index: 10;">
+                            <button class="btn-remove" onclick="event.stopPropagation(); confirmDelete('donations', '{{ req['_id'] | string }}');">
+                                <img src="{{ url_for('static', filename='assets/trash-can-image.jpg') }}" alt="Delete">
+                            </button>
+                        </div>
                     </summary>
                     <div class="db-details">
                         <p><strong>Email:</strong> <a href="mailto:{{ req['email'] }}">{{ req['email'] }}</a></p>
