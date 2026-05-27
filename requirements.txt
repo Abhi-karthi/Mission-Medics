@@ -12,3 +12,4 @@ python-dotenv==1.2.2
 PyYAML==6.0.3
 render-template==0.2.0
 Werkzeug==3.1.8
+gunicorn==22.0.0
