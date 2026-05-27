@@ -8,19 +8,22 @@
 </head>
 <body>
 
-    <nav class="navbar" style="width: 90%; max-width: 900px; padding: 0 25px;">
-
-        <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" class="logo-image-navbar" style="width: 70px; margin-right: auto;">
-
-        <span style="position: absolute; left: 50%; transform: translateX(-50%); font-weight: 800; color: var(--deep-blue); font-size: 18px; white-space: nowrap;">
-            Admin Dashboard
-        </span>
-
-        <a href="/logout" class="nav-btn" style="margin-left: auto; background: rgba(217, 83, 79, 0.1); color: #d9534f; padding: 10px 20px;">Log Out</a>
-
+    <nav class="navbar" style="display: flex; width: 90%; max-width: 900px; padding: 6px 25px;">
+        <div style="flex: 1; display: flex; justify-content: flex-start; align-items: center;">
+            <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" class="logo-image-navbar" style="width: 70px; margin: 0;">
+        </div>
+        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <span style="font-weight: 800; color: var(--deep-blue); font-size: 18px; white-space: nowrap;">
+                Admin Dashboard
+            </span>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
+            <a href="/logout" class="nav-btn" style="background: rgba(217, 83, 79, 0.1); color: #d9534f; padding: 10px 20px; margin: 0;">Log Out</a>
+        </div>
     </nav>
 
     <div class="main-container">
+
         <div class="glass-card" style="margin-bottom: 40px; text-align: left;">
             <h1 class="card-heading">Supply Donations</h1>
             <p class="card-text" style="margin: 0 0 20px 0;">People offering to donate supplies.</p>
@@ -28,9 +31,15 @@
             <div class="db-list">
                 {% for req in donation_requests %}
                 <details class="db-dropdown">
-                    <summary class="db-summary">
-                        <strong>{{ req['name'] }}</strong>
-                        <span style="color: gray; font-size: 14px; margin-left: 10px;">- {{ req['city'] }}, {{ req['zip'] }}</span>
+                    <summary class="db-summary" style="display: flex; justify-content: space-between; align-items: center; padding-right: 45px;">
+                        <div>
+                            <strong>{{ req['name'] }}</strong>
+                            <span style="color: gray; font-size: 14px; margin-left: 10px;">- {{ req['city'] }}, {{ req['zip'] }}</span>
+                        </div>
+                        <button class="btn-remove" style="position: relative; z-index: 10;"
+                                onclick="event.stopPropagation(); confirmDelete('donations', '{{ req['_id'] | string }}');">
+                            <img src="{{ url_for('static', filename='assets/trash-can-image.jpg') }}" alt="Delete" style="width: 16px; opacity: 0.8;">
+                        </button>
                     </summary>
                     <div class="db-details">
                         <p><strong>Email:</strong> <a href="mailto:{{ req['email'] }}">{{ req['email'] }}</a></p>
@@ -61,7 +70,7 @@
                             <span style="color: gray; font-size: 14px; margin-left: 10px;">- {{ req['city'] }}, {{ req['zip'] }}</span>
                         </div>
                         <button class="btn-remove" style="position: relative; z-index: 10;"
-                                onclick="event.stopPropagation(); confirmDelete('donations', '{{ req['_id'] }}');">
+                                onclick="event.stopPropagation(); confirmDelete('requests', '{{ req['_id'] | string }}');">
                             <img src="{{ url_for('static', filename='assets/trash-can-image.jpg') }}" alt="Delete" style="width: 16px; opacity: 0.8;">
                         </button>
                     </summary>
@@ -88,7 +97,8 @@
                 fetch(`/api/delete/${type}/${id}`, { method: 'DELETE' })
                 .then(response => {
                     if (response.ok) {
-                        window.location.reload(); // Reload page to reflect changes
+                        // FIXED: Replaced reload() with a clean GET request to prevent resubmission popups
+                        window.location.href = window.location.href;
                     } else {
                         alert("Failed to delete record.");
                     }
@@ -105,19 +115,15 @@
             const content = details.querySelector('.db-details');
 
             summary.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent the default instant-snap
+                e.preventDefault();
 
                 if (details.hasAttribute('open')) {
-                    // Close Animation
                     content.style.maxHeight = '0px';
                     content.style.padding = '0 20px';
                     content.style.opacity = '0';
-                    // Wait for CSS transition to finish before actually removing the open attribute
                     setTimeout(() => details.removeAttribute('open'), 350);
                 } else {
-                    // Open Animation
                     details.setAttribute('open', '');
-                    // Calculate exact height needed for the inner content
                     content.style.maxHeight = content.scrollHeight + 40 + 'px';
                     content.style.padding = '20px';
                     content.style.opacity = '1';
