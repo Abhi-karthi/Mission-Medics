@@ -73,7 +73,7 @@
                         </div>
 
                         <div style="margin-right: 35px; position: relative; z-index: 10;">
-                            <button class="btn-remove" onclick="event.stopPropagation(); confirmDelete('donations', '{{ req['_id'] | string }}');">
+                            <button class="btn-remove" onclick="event.stopPropagation(); confirmDelete('requests', '{{ req['_id'] | string }}');">
                                 <img src="{{ url_for('static', filename='assets/trash-can-image.jpg') }}" alt="Delete">
                             </button>
                         </div>

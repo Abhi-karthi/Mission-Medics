@@ -1,4 +1,5 @@
 import os
+import certifi
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, make_response
 from functools import wraps
 import smtplib
@@ -17,11 +18,13 @@ app.secret_key = "super_secret_mission_medics_key"
 # --- MONGODB CONFIGURATION ---
 MONGO_STRING = os.getenv("MONGO_STRING")
 try:
-    client = MongoClient(MONGO_STRING)
+    # ADDED: tlsCAFile=certifi.where()
+    client = MongoClient(MONGO_STRING, tlsCAFile=certifi.where())
+
     db = client.mission_medics
     requests_collection = db.get_supplies_requests
     donations_collection = db.donate_supplies_requests
-    staff_collection = db.staff_users  # New collection for staff
+    staff_collection = db.staff_users
 except Exception as e:
     print(f"Failed to connect to MongoDB: {e}")
 

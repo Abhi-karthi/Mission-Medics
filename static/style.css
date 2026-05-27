@@ -193,8 +193,9 @@ body {
 }
 
 #small-font-medics {
-    font-size: 14px;
+    font-size: 21px;
     color: #1E3057;
+    margin-bottom: 1.2%;
 }
 
 /* --- SELECTED STATE VISUALS --- */
