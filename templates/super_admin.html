@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin - Mission Medics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar glass-card" style="display: flex; width: 90%; max-width: 900px; padding: 6px 25px;">
+        <div style="flex: 1; display: flex; justify-content: flex-start; align-items: center;">
+            <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" class="logo-image-navbar" style="width: 70px; margin: 0;">
+        </div>
+        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <span style="font-weight: 800; color: #d9534f; font-size: 18px; white-space: nowrap;">SUPER ADMIN</span>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 15px;">
+            <a href="/dashboard" class="nav-btn" style="padding: 10px 20px; margin: 0;">Main Dash</a>
+            <a href="/logout" class="nav-btn" style="background: rgba(217, 83, 79, 0.1); color: #d9534f; padding: 10px 20px; margin: 0;">Log Out</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+
+        <div class="glass-card" style="margin-bottom: 40px; text-align: left;">
+            <h1 class="card-heading">Add Staff User</h1>
+            <form id="add-staff-form" class="form-grid" style="grid-template-columns: 1fr 1fr auto; align-items: end;">
+                <div class="form-row">
+                    <label>Username:</label>
+                    <input type="text" id="new-username" required class="input">
+                </div>
+                <div class="form-row">
+                    <label>Password:</label>
+                    <input type="password" id="new-password" required class="input">
+                </div>
+                <button type="submit" class="btn-primary" style="margin: 0; padding: 14px 25px;">Create User</button>
+            </form>
+        </div>
+
+        <div class="glass-card" style="text-align: left;">
+            <h1 class="card-heading">Active Staff Accounts</h1>
+            <p class="card-text" style="font-size: 14px;">Passwords are securely hashed and cannot be viewed. If a user forgets their password, delete their account and create a new one.</p>
+
+            <div class="db-list">
+                {% for user in staff_users %}
+                <div class="donated-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>{{ user['username'] }}</strong>
+                        <span style="color: gray; font-size: 12px; margin-left: 10px;">[Password Hashed]</span>
+                    </div>
+                    <button class="btn-remove" onclick="confirmDeleteUser('{{ user['_id'] }}')">
+                        <img src="{{ url_for('static', filename='assets/trash-can-image.jpg') }}" style="width: 16px; opacity: 0.8;">
+                    </button>
+                </div>
+                {% else %}
+                <p style="color: gray; font-style: italic;">No staff users found.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('add-staff-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('new-username').value;
+            const password = document.getElementById('new-password').value;
+
+            fetch('/api/staff', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) alert(data.error);
+                else window.location.reload();
+            });
+        });
+
+        function confirmDeleteUser(id) {
+            if (confirm("Revoke access for this user?")) {
+                fetch(`/api/staff/${id}`, { method: 'DELETE' })
+                .then(res => {
+                    if (res.ok) window.location.reload();
+                });
+            }
+        }
+    </script>
+</body>
+</html>

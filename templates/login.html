@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login - Mission Medics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="main-container" style="justify-content: center; min-height: 100vh; padding-top: 0;">
+        <div class="glass-card" style="max-width: 500px; padding: 40px;">
+            <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" style="width: 100px; margin-bottom: 20px;">
+            <h1 class="card-heading">Staff Portal</h1>
+
+            {% if error %}
+            <p style="color: #d9534f; font-weight: 600; margin-bottom: 20px;">{{ error }}</p>
+            {% endif %}
+
+            <form method="POST" action="/login" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                <div>
+                    <label style="font-size: 14px; font-weight: 700; color: var(--deep-blue); margin-bottom: 8px; display: block;">Username:</label>
+                    <input type="text" name="username" required class="input">
+                </div>
+                <div>
+                    <label style="font-size: 14px; font-weight: 700; color: var(--deep-blue); margin-bottom: 8px; display: block;">Password:</label>
+                    <input type="password" name="password" required class="input">
+                </div>
+                <button type="submit" class="btn-primary" style="margin-top: 10px;">Secure Login</button>
+            </form>
+            <a href="/" style="display: inline-block; margin-top: 20px; color: var(--primary-blue); font-weight: 600; text-decoration: none;">← Back to Home</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

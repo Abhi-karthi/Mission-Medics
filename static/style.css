@@ -1,3 +1,8 @@
+html {
+    overflow-y: scroll;
+    scrollbar-gutter: stable; /* Reserves space for the scrollbar so the layout never shifts */
+}
+
 :root {
     --glass-surface: rgba(255, 255, 255, 0.65);
     --glass-border: rgba(255, 255, 255, 0.5);
@@ -312,4 +317,108 @@ body {
     .other-donate-item { flex-direction: column; gap: 15px; align-items: stretch; }
     .compact-input { margin-right: 0; }
     .compact-qty { justify-content: space-between; padding: 8px 12px; }
+}
+
+/* --- STAFF LOGIN BUTTON --- */
+.staff-login-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    color: var(--primary-blue);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 10px 15px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+.staff-login-btn:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(74, 108, 155, 0.15);
+}
+
+/* --- DASHBOARD DROPDOWNS --- */
+.db-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.db-dropdown {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+/* 1. Summary styling & Arrow preparation */
+.db-summary {
+    position: relative; /* Necessary for the absolute positioned arrow */
+    padding: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--deep-blue);
+    list-style: none;
+    transition: background 0.2s ease;
+}
+.db-summary::-webkit-details-marker {
+    display: none;
+}
+
+/* 2. The Sleek CSS Arrow */
+.db-summary::after {
+    content: '';
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--deep-blue);
+    border-bottom: 2px solid var(--deep-blue);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.35s var(--spring-bounce);
+    opacity: 0.7;
+}
+
+/* Arrow rotates when dropdown is open */
+.db-dropdown[open] .db-summary::after {
+    transform: translateY(-30%) rotate(225deg);
+}
+
+.db-summary:hover {
+    background: rgba(74, 108, 155, 0.03);
+}
+.db-dropdown[open] .db-summary {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background: rgba(74, 108, 155, 0.05);
+}
+
+/* 3. Smooth Transition Content Container */
+.db-details {
+    max-height: 0;
+    opacity: 0;
+    padding: 0 20px;
+    background: #fafcff;
+    font-size: 16px;
+    color: #4a5a6a;
+    line-height: 1.6;
+    overflow: hidden;
+    /* This matches the 350ms delay in the JavaScript */
+    transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out, padding 0.35s ease-in-out;
+}
+.db-details p {
+    margin-bottom: 8px;
+}
+.db-items {
+    margin-top: 15px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.05);
+    color: var(--primary-blue);
 }

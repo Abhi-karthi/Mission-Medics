@@ -322,7 +322,7 @@ document.querySelectorAll('.glass-card').forEach(card => {
             card.style.setProperty('--mouse-y', `${globalMouseY - rect.top}px`);
         }
 
-        const ease = state.active ? 0.03 : 0.015;
+        const ease = state.active ? 0.01 : 0.009;
         state.rotX += (state.tRotX - state.rotX) * ease; state.rotY += (state.tRotY - state.rotY) * ease;
         state.transX += (state.tTransX - state.transX) * ease; state.transY += (state.tTransY - state.transY) * ease;
         card.style.transform = `translateX(${state.transX}px) translateY(${state.transY}px) perspective(1000px) rotateX(${state.rotX}deg) rotateY(${state.rotY}deg)`;
