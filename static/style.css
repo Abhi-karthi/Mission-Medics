@@ -428,3 +428,37 @@ body {
     border: 1px solid rgba(0,0,0,0.05);
     color: var(--primary-blue);
 }
+
+/* --- ABOUT US COLUMNS --- */
+.about-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+}
+
+.about-column {
+    flex: 1; /* Ensures all three columns take up equal space */
+}
+
+/* Ensure paragraphs take up the full width of their new, smaller columns */
+.about-column .card-text {
+    width: 100% !important;
+    font-size: 15px;
+    margin: 0 auto;
+}
+
+/* Responsive adjustment for mobile phones */
+@media (max-width: 760px) {
+    .about-columns {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+.about-subheading {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
