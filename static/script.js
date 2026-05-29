@@ -288,7 +288,7 @@ window.addEventListener('mousemove', e => { globalMouseX = e.clientX; globalMous
 
 // --- ADJUST THESE VARIABLES ---
 const maxRotate = 4;      // Reduced from 12 to 4 for a subtle, premium tilt
-const stickiness = 0.11;  // Reduced from 0.04 to minimize the floating shift
+const stickiness = 0.08;  // Reduced from 0.04 to minimize the floating shift
 const safeZoneBuffer = 60;
 // ------------------------------
 
@@ -322,7 +322,7 @@ document.querySelectorAll('.glass-card').forEach(card => {
             card.style.setProperty('--mouse-y', `${globalMouseY - rect.top}px`);
         }
 
-        const ease = state.active ? 0.01 : 0.009;
+        const ease = state.active ? 0.005 : 0.004;
         state.rotX += (state.tRotX - state.rotX) * ease; state.rotY += (state.tRotY - state.rotY) * ease;
         state.transX += (state.tTransX - state.transX) * ease; state.transY += (state.tTransY - state.transY) * ease;
         card.style.transform = `translateX(${state.transX}px) translateY(${state.transY}px) perspective(1000px) rotateX(${state.rotX}deg) rotateY(${state.rotY}deg)`;

@@ -192,6 +192,10 @@ body {
     padding-bottom: 8px;
 }
 
+.horizontal-border {
+    border-right: 2px solid rgba(74, 108, 155, 0.1);
+}
+
 #small-font-medics {
     font-size: 21px;
     color: #1E3057;
@@ -427,4 +431,69 @@ body {
     border-radius: 12px;
     border: 1px solid rgba(0,0,0,0.05);
     color: var(--primary-blue);
+}
+
+/* --- ABOUT US COLUMNS & BORDERS --- */
+.horizontal-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch; /* <--- Change this from flex-start to stretch */
+    gap: 30px;
+    width: 100%;
+}
+
+.about-column {
+    flex: 1; /* Ensures all three columns take up equal space */
+}
+
+.about-column .card-text {
+    width: 100% !important;
+    font-size: 15px;
+    margin: 0 auto;
+}
+
+.about-subheading {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: var(--deep-blue);
+}
+
+/* --- THE CENTERED BORDER SOLUTION --- */
+.horizontal-border {
+    position: relative;
+    border-right: none; /* Remove the standard uneven border */
+}
+
+/* Draw a custom line exactly in the middle of the 30px gap */
+.horizontal-border::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -16px; /* 15px (half the gap) + 1px (half the line width) */
+    height: 100%;
+    width: 2px;
+    background-color: rgba(74, 108, 155, 0.1);
+}
+
+/* --- MOBILE RESPONSIVE FIXES --- */
+@media (max-width: 760px) {
+    .horizontal-flex {
+        flex-direction: column;
+        gap: 40px; /* Vertical gap between stacked columns */
+    }
+
+    /* Change the vertical separating line to a horizontal line for mobile */
+    .horizontal-border::after {
+        top: auto;
+        bottom: -20px; /* Pushes line into the middle of the 40px vertical gap */
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+    }
+}
+
+.team-member-heading {
+    margin-bottom: 10px;
 }
