@@ -288,7 +288,7 @@ window.addEventListener('mousemove', e => { globalMouseX = e.clientX; globalMous
 
 // --- ADJUST THESE VARIABLES ---
 const maxRotate = 4;      // Reduced from 12 to 4 for a subtle, premium tilt
-const stickiness = 0.11;  // Reduced from 0.04 to minimize the floating shift
+const stickiness = 0.08;  // Reduced from 0.04 to minimize the floating shift
 const safeZoneBuffer = 60;
 // ------------------------------
 
