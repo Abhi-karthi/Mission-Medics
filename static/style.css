@@ -192,6 +192,10 @@ body {
     padding-bottom: 8px;
 }
 
+.horizontal-border {
+    border-right: 2px solid rgba(74, 108, 155, 0.1);
+}
+
 #small-font-medics {
     font-size: 21px;
     color: #1E3057;
@@ -430,7 +434,7 @@ body {
 }
 
 /* --- ABOUT US COLUMNS --- */
-.about-columns {
+.horizontal-flex {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -452,7 +456,7 @@ body {
 
 /* Responsive adjustment for mobile phones */
 @media (max-width: 760px) {
-    .about-columns {
+    .horizontal-flex {
         flex-direction: column;
         gap: 40px;
     }
