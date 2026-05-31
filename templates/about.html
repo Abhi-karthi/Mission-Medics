@@ -1,65 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Mission Medics</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v=2) }}">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/mission-medics-icon.png', v=1) }}">
-</head>
-<body>
-    <nav class="navbar">
-        <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" class="logo-image-navbar">
-        <a href="/" class="nav-btn active">About Us</a>
-        <a href="/donate" class="nav-btn">Donate Supplies</a>
-        <a href="/get-supplies" class="nav-btn">Get Supplies</a>
-        <a href="/support" class="nav-btn">Support</a>
-    </nav>
+{% extends "base.html" %}
+{% block content %}
+<section class="page-section">
+    <h1 class="section-heading" style="margin-bottom:-1.3%;">Mission M.E.D.I.C.S</h1>
+    <p id="small-font-medics">Medical Equipment Donation Initiative for Community Support</p>
+    <div class="glass-card" style="gap: 50px; width: 95%; max-width: 1200px;">
+        <h2 class="card-heading">About Us</h2>
+        <div class="horizontal-flex">
+            <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" style="width: 350px; height: auto; align-self: center; object-fit: contain; margin: 0;">
 
-    <div class="main-container">
-        <section class="page-section">
-            <h1 class="section-heading" style="margin-bottom:-1.3%;">Mission M.E.D.I.C.S</h1>
-            <p id="small-font-medics">Medical Equipment Donation Initiative for Community Support</p>
-            <div class="glass-card" style="gap: 50px; width: 95%; max-width: 1200px;">
-                <h2 class="card-heading">About Us</h2>
-                <div class="horizontal-flex">
-                    <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" style="width: 350px; height: auto; align-self: center; object-fit: contain; margin: 0;">
-
-                    <p class="card-text" style="align-self: center; margin: 0; text-align: left;">Every great initiative starts by seeing a pressing need and stepping up to provide the solution. That is exactly how Mission Medics came to life. As a newly established nonprofit, we are planting deep roots in our community. Our innovative medical equipment reuse program was born to bridge the gap, ensuring that individuals living with disabilities have direct access to the assistive technology and home medical supplies they deserve.</p>
-                </div>
-            </div>
-            <div class="glass-card horizontal-flex" style="width: 95%; max-width: 1200px;">
-                <div class="about-column horizontal-border">
-                    <h2 class="about-subheading ">Our Mission</h2>
-                    <p class="card-text">Mission Medics is dedicated to supporting individuals living with disabilities and illnesses. By bringing new life to used medical equipment and assistive tools, we help make daily life easier, more accessible, and more fulfilling for the people who need it most.</p>
-                </div>
-
-                <div class="about-column horizontal-border">
-                    <h2 class="about-subheading">Our Vision</h2>
-                    <p class="card-text ">Because we believe that mobility and independence are fundamental human rights, Mission Medics is deeply committed to supporting those living with disabilities and life-altering illnesses. We provide thoughtful, innovative solutions to help clear the path of everyday obstacles, empowering every person to live a healthier, more confident, and fulfilling life.</p>
-                </div>
-
-                <div class="about-column">
-                    <h2 class="about-subheading">Our Impact</h2>
-                    <p class="card-text">Mission Medics has been a caring presence for our community's most vulnerable members. From the beginning, we've had of helping of individuals find the exact tools they need to navigate life with a disability, bringing comfort, dignity, and independence back into their daily routines.</p>
-                </div>
-            </div>
-            <div class="glass-card" style="width: 95%; max-width: 1200px;">
-                <h2 class="card-heading">Our Team</h2>
-                <div class="horizontal-flex" style="gap: 119px; justify-content: center">
-                    <div>
-                        <h3 class="team-member-heading">Srikrithi Appikatla</h3>
-                        <p>Founder & Chief Executive Officer (CEO)</p>
-                    </div>
-                    <div>
-                        <h3 class="team-member-heading">Abhikarthi Appikatla</h3>
-                        <p>Founder & Chief Technology Officer (CTO)</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <p class="card-text" style="align-self: center; margin: 0; text-align: left;">Every great initiative starts by seeing a pressing need and stepping up to provide the solution. That is exactly how Mission Medics came to life. As a newly established nonprofit, we are planting deep roots in our community. Our innovative medical equipment reuse program was born to bridge the gap, ensuring that individuals living with disabilities have direct access to the assistive technology and home medical supplies they deserve.</p>
+        </div>
     </div>
-    <a href="/login" class="staff-login-btn">Staff Login</a>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+    <div class="glass-card horizontal-flex" style="width: 95%; max-width: 1200px;">
+        <div class="about-column horizontal-border">
+            <h2 class="about-subheading ">Our Mission</h2>
+            <p class="card-text">Mission Medics is dedicated to supporting individuals living with disabilities and illnesses. By bringing new life to used medical equipment and assistive tools, we help make daily life easier, more accessible, and more fulfilling for the people who need it most.</p>
+        </div>
+
+        <div class="about-column horizontal-border">
+            <h2 class="about-subheading">Our Vision</h2>
+            <p class="card-text ">Because we believe that mobility and independence are fundamental human rights, Mission Medics is deeply committed to supporting those living with disabilities and life-altering illnesses. We provide thoughtful, innovative solutions to help clear the path of everyday obstacles, empowering every person to live a healthier, more confident, and fulfilling life.</p>
+        </div>
+
+        <div class="about-column">
+            <h2 class="about-subheading">Our Impact</h2>
+            <p class="card-text">Mission Medics has been a caring presence for our community's most vulnerable members. From the beginning, we've had of helping of individuals find the exact tools they need to navigate life with a disability, bringing comfort, dignity, and independence back into their daily routines.</p>
+        </div>
+    </div>
+    <div class="glass-card" style="width: 95%; max-width: 1200px;">
+        <h2 class="card-heading">Our Team</h2>
+        <div class="horizontal-flex" style="gap: 119px; justify-content: center">
+            <div>
+                <h3 class="team-member-heading">Srikrithi Appikatla</h3>
+                <p>Founder & Chief Executive Officer (CEO)</p>
+            </div>
+            <div>
+                <h3 class="team-member-heading">Abhikarthi Appikatla</h3>
+                <p>Founder & Chief Technology Officer (CTO)</p>
+            </div>
+        </div>
+    </div>
+</section>
+<a href="/login" class="staff-login-btn">Staff Login</a>
+{% endblock %}
