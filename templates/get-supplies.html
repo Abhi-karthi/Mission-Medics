@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Supplies - Mission Medics</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <nav class="navbar">
-        <img src="{{ url_for('static', filename='assets/mission-medics-logo.png') }}" alt="Logo" class="logo-image-navbar">
-        <a href="/" class="nav-btn">About Us</a>
-        <a href="/donate" class="nav-btn">Donate Supplies</a>
-        <a href="/get-supplies" class="nav-btn active">Get Supplies</a>
-        <a href="/support" class="nav-btn">Support</a>
-    </nav>
-
-    <div class="main-container">
+{% extends "base.html" %}
+{% block content %}
         <h1 class="section-heading">Get Supplies</h1>
 
         <div id="get-supplies-ui" class="cards-container">
@@ -85,7 +69,4 @@
             <h1 class="card-heading">Request Submitted!</h1>
             <p class="card-text">Your request has been submitted successfully. We will contact you soon.</p>
         </div>
-    </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+{% endblock %}
